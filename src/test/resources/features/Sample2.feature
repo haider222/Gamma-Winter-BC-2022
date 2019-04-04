@@ -16,9 +16,3 @@ Feature: Introduction to cucumber part 2
     And I enter age: 61
     And I click submit age
     Then I see message: "Hello, Bob, you are an adult"
-
-  Scenario: sample 2 individual task
-    Given  I open action page
-    And I enter number 5 in number field
-    And I click Result
-    Then I see text: "You entered number: "5""
