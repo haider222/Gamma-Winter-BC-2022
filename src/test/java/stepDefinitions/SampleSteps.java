@@ -6,7 +6,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import java.util.List;
 import java.util.Map;
@@ -44,6 +43,12 @@ public class SampleSteps {
         driver.findElement(By.id("name")).sendKeys(name);
     }
 
+    @When("^I enter name: (.*)$")
+    public void iEnterName2(String name) throws Throwable {
+        driver.findElement(By.id("name")).clear();
+        driver.findElement(By.id("name")).sendKeys(name);
+    }
+
     @And("^I enter age: (\\d+)$")
     public void iEnterAge(int age) throws Throwable {
         driver.findElement(By.id("age")).sendKeys(String.valueOf(age));
@@ -76,7 +81,8 @@ public class SampleSteps {
 
     @And("^I should see menu$")
     public void iShouldSeeMenu() throws Throwable {
-        assertTrue(driver.findElement(By.className("w3-navbar")).isDisplayed());
+        Thread.sleep(1000);
+        assertTrue(driver.findElement(By.cssSelector(".w3-navbar")).isDisplayed());
     }
 
     @And("^I click the result checkbox button$")
@@ -99,5 +105,44 @@ public class SampleSteps {
     @Given("^I am on action page$")
     public void iAmOnActionPage() {
         driver.get("https://kristinek.github.io/site/examples/actions");
+    }
+
+    @And("^I should see some text$")
+    public void iShouldSeeSomeText() {
+        assertTrue(driver.findElement(By.tagName("p")).isDisplayed());
+        System.out.println(driver.findElement(By.tagName("p")).getText());
+    }
+
+    @When("^I open styles page$")
+    public void iOpenStylesPage() {
+        driver.get("https://kristinek.github.io/site/examples/styles");
+    }
+
+    @Then("^correct header is seen$")
+    public void correctHeaderIsSeen() {
+        String actualText = driver.findElement(By.tagName("h1")).getText();
+        assertEquals("Lorem ipsum", actualText);
+    }
+
+    @Given("^I open action page$")
+    public void iOpenActionPage() {
+        driver.get("https://kristinek.github.io/site/examples/actions");
+    }
+
+    @And("^I enter number (\\d+) in number field$")
+    public void iEnterNumberInNumberField(String num) {
+        driver.findElement(By.id("number")).clear();
+        driver.findElement(By.id("number")).sendKeys(num);
+    }
+
+    @And("^I click Result$")
+    public void iClickResult() {
+        driver.findElement(By.id("result_button_number")).click();
+    }
+
+    @Then("^I see text: \"(.+)\"$")
+    public void iSeeText(String expectedText) throws Throwable {
+        String actualText = driver.findElement(By.id("result_number")).getText();
+        assertEquals(expectedText, actualText);
     }
 }

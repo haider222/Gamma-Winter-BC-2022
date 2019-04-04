@@ -8,4 +8,6 @@ Feature: Introduction to cucumber part 1
     And I should see home page description
     And I should see menu
 
-
+  Scenario: Sample 1 individual task
+    When I open styles page
+    Then correct header is seen
