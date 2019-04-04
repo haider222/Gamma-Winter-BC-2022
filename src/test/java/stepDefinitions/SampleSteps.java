@@ -1,6 +1,5 @@
 package stepDefinitions;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -40,12 +39,6 @@ public class SampleSteps {
 
     @When("^I enter name: \"([^\"]*)\"$")
     public void iEnterName(String name) throws Throwable {
-        driver.findElement(By.id("name")).clear();
-        driver.findElement(By.id("name")).sendKeys(name);
-    }
-
-    @When("^I enter name: (.*)$")
-    public void iEnterName2(String name) throws Throwable {
         driver.findElement(By.id("name")).clear();
         driver.findElement(By.id("name")).sendKeys(name);
     }
@@ -109,28 +102,17 @@ public class SampleSteps {
     }
 
     @And("^I should see some text$")
-<<<<<<< Updated upstream
     public void iShouldSeeSomeText() {
-=======
-    public void iShouldSeeSomeText() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
->>>>>>> Stashed changes
         assertTrue(driver.findElement(By.tagName("p")).isDisplayed());
         System.out.println(driver.findElement(By.tagName("p")).getText());
     }
 
     @When("^I open styles page$")
-<<<<<<< Updated upstream
     public void iOpenStylesPage() {
-=======
-    public void iOpenStylesPage() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
->>>>>>> Stashed changes
         driver.get("https://kristinek.github.io/site/examples/styles");
     }
 
     @Then("^correct header is seen$")
-<<<<<<< Updated upstream
     public void correctHeaderIsSeen() {
         String actualText = driver.findElement(By.tagName("h1")).getText();
         assertEquals("Lorem ipsum", actualText);
@@ -138,23 +120,10 @@ public class SampleSteps {
 
     @Given("^I open action page$")
     public void iOpenActionPage() {
-=======
-    public void correctHeaderIsSeen() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        assertTrue(driver.findElement(By.className("w3-jumbo")).isDisplayed());
-        assertEquals("Lorem ipsum", driver.findElement(By.className("w3-jumbo")).getText());
-        System.out.println(driver.findElement(By.className("w3-jumbo")).isDisplayed());
-    }
-
-    @Given("^I open action page$")
-    public void iOpenActionPage() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
->>>>>>> Stashed changes
         driver.get("https://kristinek.github.io/site/examples/actions");
     }
 
     @And("^I enter number (\\d+) in number field$")
-<<<<<<< Updated upstream
     public void iEnterNumberInNumberField(String num) {
         driver.findElement(By.id("number")).clear();
         driver.findElement(By.id("number")).sendKeys(num);
@@ -170,36 +139,4 @@ public class SampleSteps {
         String actualText = driver.findElement(By.id("result_number")).getText();
         assertEquals(expectedText, actualText);
     }
-=======
-    public void iEnterNumberInNumberField(String arg0) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        driver.findElement(By.id("number")).clear();
-        driver.findElement(By.id("number")).sendKeys(arg0);
-    }
-
-    @And("^I click Result$")
-    public void iClickResult() throws Throwable {
-        driver.findElement(By.id("result_button_number")).click();
-    }
-
-//    @Then("^I see text: \"([^\"]*)\"(\\d+)\"([^\"]*)\"$")
-//    public void iSeeText(String arg0, String arg1, String arg2) throws Throwable {
-//        String expected = arg0 + "\"" + arg1 + "\"";
-//        assertEquals(expected, driver.findElement(By.id("result_number")).getText());
-//    }
-
-    @Then("^I see text: \"(.*)\"$")
-    public void iSeeText(String expected) throws Throwable {
-        String actual = driver.findElement(By.id("result_number")).getText();
-        assertEquals(expected, actual);
-    }
-
-    @And("^I enter number <number> in number field$")
-    public void iEnterNumberNumberInNumberField(String num) throws Throwable {
-        driver.findElement(By.id("number")).clear();
-        driver.findElement(By.id("number")).sendKeys(num);
-    }
-
-
->>>>>>> Stashed changes
 }

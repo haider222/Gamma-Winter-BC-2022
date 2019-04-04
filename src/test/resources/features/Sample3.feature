@@ -16,23 +16,8 @@ Feature: Introduction to cucumber part 3
       | Ann   | 5   | Hello, Ann, you are a kid      |
       | Marry | 50  | Hello, Marry, you are an adult |
       | Bob   | 61  | Hello, Bob, you are an adult   |
-
   @not_working
     Examples:
       | name | age | message                   |
       | Tom  | 15  | Hello, Tom, you are a kid |
-
-  @test
-  Scenario Outline: sample 3 individual task
-    Given  I open action page
-    When I enter number <number> in number field
-    And I click Result
-    Then I see text: "You entered number: "<number>""
-
-    Examples:
-      | number |
-      | 5      |
-      | 64     |
-      | 70     |
-
 
