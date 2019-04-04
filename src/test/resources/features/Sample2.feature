@@ -7,6 +7,7 @@ Feature: Introduction to cucumber part 2
 
   Scenario: a new scenario 1 with regex
     When I enter name: "Ann"
+    When I enter name: Kate
     And I enter age: 5
     And I click submit age
     Then I see message: "Hello, Ann, you are a kid"
@@ -17,8 +18,17 @@ Feature: Introduction to cucumber part 2
     And I click submit age
     Then I see message: "Hello, Bob, you are an adult"
 
+<<<<<<< Updated upstream
   Scenario: sample 2 individual task
     Given  I open action page
     And I enter number 5 in number field
     And I click Result
     Then I see text: "You entered number: "5""
+=======
+  Scenario: a new scenario 3 with regex
+    Given  I open action page
+    And I enter number 7 in number field
+    And I click Result
+    Then I see text: "You entered number: "7""
+
+>>>>>>> Stashed changes
