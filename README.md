@@ -17,6 +17,19 @@ In [Task1.feature](../master/src/test/resources/features/Task1.feature) create 1
       * enter text instead of the number
   * Scenario for correct number
 
+#### Task 2
+In [Task2.feature](../master/src/test/resources/features/Task2.feature) create 1 scenario outline and
+create scenario or scenario outlines for page https://kristinek.github.io/site/tasks/list_of_people.html or https://kristinek.github.io/site/tasks/list_of_people_with_jobs.html
+in order to test that user can:
+    * add a new person
+    * edit a person
+    * remove a person
+    * reset original list after:
+        * adding a person
+        * editing a person
+        * removing a person
+    * check that clear button on adding a user works correctly
+
 ### Setup 
 [see wiki](https://github.com/KristineK/cucumber_java_basic/wiki/Setup)
 
