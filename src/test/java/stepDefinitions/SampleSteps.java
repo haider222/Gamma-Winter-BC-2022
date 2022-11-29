@@ -1,12 +1,11 @@
 package stepDefinitions;
 
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +17,7 @@ public class SampleSteps {
     private WebDriver driver;
 
     public SampleSteps() {
-        this.driver = Hooks.driver;
+        this.driver = stepDefinitions.Hooks.driver;
     }
 
     @Given("^I am on the home page$")
