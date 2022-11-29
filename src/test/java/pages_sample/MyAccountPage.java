@@ -10,10 +10,19 @@ import static org.junit.Assert.*;
 
 public class MyAccountPage {
 
-    @FindBy(how = How.XPATH, using = "//*[@id=\"top-links\"]/ul/li[@class=\"dropdown open\"]/a/span[text()=\"My Account\"]")
-    private WebElement topMenuMyAccount;
+    @FindBy(how = How.CSS, using = "#top-links > ul > li.dropdown > a")
+    private WebElement navMenuItemMyAccount;
 
-    @FindBy(how = How.CSS, using = "div.list-group")
+//    @FindBy(how = How.CSS, using = "#top-links > ul > li.dropdown > a > span.hidden-xs.hidden-sm.hidden-md")
+//    private WebElement navMenuItemMyAccount;
+
+//    //*[@id="top-links"]/ul/li[@class="dropdown open"]/a/span[text()="My Account"]
+
+    @FindBy(how = How.XPATH, using = "//ul[@class=\"list-inline\"]/li[@class=\"dropdown open\"]/" +
+            "ul[@class=\"dropdown-menu dropdown-menu-right\"]/li/a[contains(text(), \"My Account\")]")
+    private WebElement subMenuItemMyAccount;
+
+    @FindBy(how = How.CSS, using = "div.list-group>a")
     private List<WebElement> listTableLinks;
 
     @FindBy(how = How.XPATH, using = "//*[@id=\"column-right\"]/div/a[text()=\"My Account\"]")
@@ -24,6 +33,9 @@ public class MyAccountPage {
 
     @FindBy(how = How.XPATH, using = "//*[@id=\"column-right\"]/div/a[text()=\"Password\"]")
     private WebElement passwordTableLink;
+
+    @FindBy(how = How.XPATH, using = "//*[@id=\"column-right\"]/div/a[text()=\"Address Book\"]")
+    private WebElement addressBookTableLink;
 
     @FindBy(how = How.XPATH, using = "//*[@id=\"column-right\"]/div/a[text()=\"Wish List\"]")
     private WebElement wishListTableLink;
@@ -54,5 +66,93 @@ public class MyAccountPage {
 
     @FindBy(how = How.XPATH, using = "//a[text()=\"Edit your account information\"]")
     private WebElement editYourAccountInfoTextLink;
+
+
+    public void clickNavMenuItemMyAccount(){
+        navMenuItemMyAccount.click();
+    }
+
+    public void clickSubMenuItemMyAccount(){
+        subMenuItemMyAccount.click();
+    }
+
+    public void  clickEditYourAccountInfoTextLink(){
+        editYourAccountInfoTextLink.click();
+    }
+
+    public WebElement getMyAccountTableLink() {
+        return myAccountTableLink;
+    }
+
+    public WebElement getEditAccountTableLink() {
+        return editAccountTableLink;
+    }
+
+    public WebElement getPasswordTableLink() {
+        return passwordTableLink;
+    }
+
+    public WebElement getAddressBookTableLink() {
+        return addressBookTableLink;
+    }
+
+    public WebElement getWishListTableLink() {
+        return wishListTableLink;
+    }
+
+    public WebElement getOrderHistoryTableLink() {
+        return orderHistoryTableLink;
+    }
+
+    public WebElement getDownloadsTableLink() {
+        return downloadsTableLink;
+    }
+
+    public WebElement getRecurringPaymentsTableLink() {
+        return recurringPaymentsTableLink;
+    }
+
+    public WebElement getRewardPointsTableLink() {
+        return rewardPointsTableLink;
+    }
+
+    public WebElement getReturnsTableLink() {
+        return returnsTableLink;
+    }
+
+    public WebElement getTransactionsTableLink() {
+        return transactionsTableLink;
+    }
+
+    public WebElement getNewsLetterTableLink() {
+        return newsLetterTableLink;
+    }
+
+    public WebElement getLogoutTableLink() {
+        return logoutTableLink;
+    }
+
+    public WebElement getNavMenuItemMyAccount() {
+        return navMenuItemMyAccount;
+    }
+
+    public WebElement getSubMenuItemMyAccount() {
+        return subMenuItemMyAccount;
+    }
+
+    public String getWebElementSelector(WebElement webElement){
+        String text = webElement.toString();
+        return text.substring(text.indexOf("selector:") + 10, text.length()-1);
+
+    }
+
+    public String getWebElementXPath(WebElement webElement){
+        String text = webElement.toString();
+        return text.substring(text.indexOf("xpath:") + 7, text.length()-1);
+    }
+
+    public List<WebElement> getListTableLinks(){
+        return listTableLinks;
+    }
 
 }

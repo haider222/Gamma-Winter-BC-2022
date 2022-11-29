@@ -2,14 +2,29 @@ package stepDefinitions;
 
 
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import static org.junit.jupiter.api.Assertions.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages_sample.EditMyAccountInfoPage;
+import pages_sample.LoginPage;
 import pages_sample.MyAccountPage;
 import pages_sample.RegistrationPage;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import static stepDefinitions.Hooks.wait;
 
 
 public class MyAccountSteps {
@@ -22,27 +37,81 @@ public class MyAccountSteps {
 
     static RegistrationPage registrationPage;
 
+    static LoginPage loginPage;
+
+
     public MyAccountSteps() {
+
         this.driver = stepDefinitions.Hooks.driver;
 
         myAccountPage = PageFactory.initElements(stepDefinitions.Hooks.driver, MyAccountPage.class);
         editMyAccountInfoPage = PageFactory.initElements(stepDefinitions.Hooks.driver, EditMyAccountInfoPage.class);
         registrationPage = PageFactory.initElements(stepDefinitions.Hooks.driver, RegistrationPage.class);
+        loginPage = PageFactory.initElements(stepDefinitions.Hooks.driver, LoginPage.class);
+
+
     }
 
-    @Given("I am on My Account page")
-    public void iAmOnMyAccountPage() throws Exception {
-        driver.get("https://kristinek.github.io/site/tasks/list_of_people_with_jobs.html");
+    @Given("I am logged in to the shop")
+    public void iAmLoggedInToTheShop() throws Exception {
+
+        driver.get(loginPage.getUrl());
+
+//        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(loginPage.getLoginEmail().getAttribute("id"))));
+        loginPage.inputLoginEmail("mari.test@yahoo.com");
+
+//        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(loginPage.getLoginPassword().getAttribute("id"))));
+        loginPage.inputLoginPassword("MariTest1");
+
+
+//        String path = loginPage.getWebElementSelector(loginPage.getLoginButton());
+//        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(path)));
+        loginPage.clickLoginButton();
+        Thread.sleep(1000);
+
+
+    }
+
+    @When("I click navigation menu item My Account")
+    public void iClickNavigationMenuItemMyAccount() throws Exception {
+
+//        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#top-links > ul > li.dropdown > a")));
+        String text = myAccountPage.getNavMenuItemMyAccount().toString();
+        String substr = text.substring(text.indexOf("#"), text.length() - 1);
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(substr)));
+
+//       driver.findElement(By.cssSelector("#top-links > ul > li.dropdown > a")).click();
+        myAccountPage.clickNavMenuItemMyAccount();
+
+    }
+
+    @And("I click sub menu item My Account")
+    public void iClickSubMenuItemMyAccount() throws Exception {
+
+//        String text = myAccountPage.getSubMenuItemMyAccount().toString();
+//        String path= text.substring(text.indexOf("//"), text.length()-1);
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(myAccountPage.
+                getWebElementXPath(myAccountPage.getSubMenuItemMyAccount()))));
+//        driver.findElement(xpath).click();
+
+        myAccountPage.clickSubMenuItemMyAccount();
         Thread.sleep(2000);
+
     }
 
-//    driver.get("https://kristinek.github.io/site/tasks/list_of_people_with_jobs.html");
-//    public void iAmOnMyAccountPage() {
-//    }
-
-//    @Given("I am on my account register page")
-//    public void iAmOnMyAccountRegisterPage() {
-//    }
+    @Then("I see menu in form of table column on the right side of screen")
+    public void iSeeMenuInFormOfTableColumnOnTheRightSideOfScreen(List<String> listExpected) {
+        System.out.println("listExpected: " + listExpected);
+        List<String> listTableOnScreen = new ArrayList<>();
+        for (WebElement tableItem : myAccountPage.getListTableLinks()) {
+            assertTrue(tableItem.isDisplayed());
+            listTableOnScreen.add(tableItem.getText());
+//            System.out.println(tableItem.getText());
+        }
+        System.out.println("listTableOnScreen: " + listTableOnScreen);
+        assertTrue(listExpected.containsAll(listTableOnScreen));
+    }
 }
 
 
