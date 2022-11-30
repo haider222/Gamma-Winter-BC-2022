@@ -1,8 +1,13 @@
 package pages_sample;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class EditMyAccountInfoPage {
 
@@ -76,6 +81,36 @@ public class EditMyAccountInfoPage {
         inputTelephone.sendKeys(telephone);
     }
 
+    public String getFirstNameValue(){
+        return inputFirstName.getAttribute("value");
+    }
+
+    public String getLastNameValue(){
+        return inputLastName.getAttribute("value");
+    }
+    public String getEmailValue(){
+        return inputEmail.getAttribute("value");
+    }
+
+    public String getTelephoneValue(){
+        return inputTelephone.getAttribute("value");
+    }
+
+
+
+    public List<String> updatedAccountInfo() {
+        List<String>  updatedInfoList;
+
+            String firstName = getFirstNameValue();
+            String lastName = getLastNameValue();
+            String eMail = getEmailValue();
+            String telephone = getTelephoneValue();
+
+        updatedInfoList = Arrays.asList(firstName, lastName, eMail, telephone);
+
+//        System.out.println("updatedInfoList:" + updatedInfoList);
+        return updatedInfoList;
+    }
 
 
 }
