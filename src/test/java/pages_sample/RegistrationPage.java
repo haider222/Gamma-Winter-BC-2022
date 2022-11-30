@@ -32,6 +32,7 @@ public class RegistrationPage {
         return "http://www.demoshop24.com/index.php?route=account/register";
     }
 
+
     public void enterFirstName(String firstName) {
         firstNameInput.sendKeys(firstName);
     }
