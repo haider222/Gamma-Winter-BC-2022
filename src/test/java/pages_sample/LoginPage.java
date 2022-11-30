@@ -15,6 +15,9 @@ public class LoginPage {
     @FindBy(how = How.CSS, using = "input[type=\"submit\"]")
     private WebElement loginButton;
 
+    @FindBy(how = How.XPATH, using = "//a[text()=\"Continue\"]")
+    private WebElement continueButton;
+
     public WebElement getLoginEmail() {
         return loginEmail;
     }
@@ -39,12 +42,13 @@ public class LoginPage {
         loginButton.click();
     }
 
+    public void clickContinueButton(){
+        continueButton.click();
+    }
+
     public String getUrl(){
         return "http://www.demoshop24.com/index.php?route=account/login";
     }
-
-
-
 
 
     public String getWebElementSelector(WebElement webElement){

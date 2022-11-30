@@ -41,7 +41,13 @@ public class EditMyAccountInfoPage {
     private WebElement dangerTextTelephone;
 
 
+    public void clickContinueButton() {
+        continueButton.click();
+    }
+
+    public void clickBackButton() {
+        backButton.click();
+    }
 
 
-    //*[@id="content"]/form/fieldset/div[@class="form-group required has-error"]/div[@class="col-sm-10"]/div[@class="text-danger" and contains(text(), "First Name")]
 }
