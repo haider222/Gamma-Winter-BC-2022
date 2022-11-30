@@ -11,7 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages_sample.EditMyAccountInfoPage;
 import pages_sample.LoginPage;
 import pages_sample.MyAccountPage;
@@ -111,6 +113,8 @@ public class MyAccountSteps {
     public void iCheckThatNoSubscribeButtonIsSelected() {
 
         registrationPage.noRadioButtonIsSelected();
+    }
+
     @When("I click navigation menu item My Account")
     public void iClickNavigationMenuItemMyAccount() throws Exception {
 
