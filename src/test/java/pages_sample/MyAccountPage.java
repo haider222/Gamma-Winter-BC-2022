@@ -71,6 +71,13 @@ public class MyAccountPage {
     private WebElement modifyYourAddressBookTextLink;
 
 
+    @FindBy(how = How.CSS, using = ".alert-success.alert-dismissible")
+    private List<WebElement> accountUpdateSuccessMessage;
+
+//    .alert-success.alert-dismissible
+//    Success: Your account has been successfully updated.
+
+
     public void clickNavMenuItemMyAccount(){
         navMenuItemMyAccount.click();
     }
@@ -98,13 +105,6 @@ public class MyAccountPage {
     public void  clickAddressBookTableLink(){
         addressBookTableLink.click();
     }
-
-
-
-
-
-
-
 
 
     public WebElement getNavMenuItemMyAccount() {
