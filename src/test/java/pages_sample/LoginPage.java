@@ -43,6 +43,10 @@ public class LoginPage {
         return "http://www.demoshop24.com/index.php?route=account/login";
     }
 
+
+
+
+
     public String getWebElementSelector(WebElement webElement){
         String text = webElement.toString();
         return text.substring(text.indexOf("selector:") + 10, text.length()-1);
