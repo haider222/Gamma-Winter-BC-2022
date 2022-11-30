@@ -63,6 +63,19 @@ public class EditMyAccountInfoPage {
     public void clickBackButton() {
         backButton.click();
     }
+    public void textInNameInput() {
+        inputFirstName.getText();
+    }
+    public void textInLastNameInput() {
+        inputLastName.getText();
+    }
+    public void textInEmailInput() {
+        inputEmail.getText();
+    }
+    public void textInTelephoneInput() {
+        inputTelephone.getText();
+    }
+
 
     public void changeFirstName(String firstName){
         inputFirstName.clear();

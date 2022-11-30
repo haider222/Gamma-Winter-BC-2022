@@ -69,6 +69,11 @@ public class MyAccountPage {
 
     @FindBy(how = How.XPATH, using = "//a[text()=\"Modify your address book entries\"]")
     private WebElement modifyYourAddressBookTextLink;
+    @FindBy(how = How.CSS, using = "//*[text()='Register']")
+    private WebElement registerButton;
+    public void clickOnRegister() {
+        registerButton.click();
+    }
 
 
     @FindBy(how = How.CSS, using = ".alert-success.alert-dismissible")
