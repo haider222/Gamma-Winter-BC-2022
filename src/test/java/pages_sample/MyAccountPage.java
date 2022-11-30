@@ -67,6 +67,9 @@ public class MyAccountPage {
     @FindBy(how = How.XPATH, using = "//a[text()=\"Edit your account information\"]")
     private WebElement editYourAccountInfoTextLink;
 
+    @FindBy(how = How.XPATH, using = "//a[text()=\"Modify your address book entries\"]")
+    private WebElement modifyYourAddressBookTextLink;
+
 
     public void clickNavMenuItemMyAccount(){
         navMenuItemMyAccount.click();
@@ -80,57 +83,29 @@ public class MyAccountPage {
         editYourAccountInfoTextLink.click();
     }
 
-    public WebElement getMyAccountTableLink() {
-        return myAccountTableLink;
+    public void  clickModifyYourAddressBookTextLink(){
+        modifyYourAddressBookTextLink.click();
     }
 
-    public WebElement getEditAccountTableLink() {
-        return editAccountTableLink;
+    public void  clickMyAccountTableLink(){
+        myAccountTableLink.click();
     }
 
-    public WebElement getPasswordTableLink() {
-        return passwordTableLink;
+    public void  clickEditAccountTableLink(){
+        editAccountTableLink.click();
     }
 
-    public WebElement getAddressBookTableLink() {
-        return addressBookTableLink;
+    public void  clickAddressBookTableLink(){
+        addressBookTableLink.click();
     }
 
-    public WebElement getWishListTableLink() {
-        return wishListTableLink;
-    }
 
-    public WebElement getOrderHistoryTableLink() {
-        return orderHistoryTableLink;
-    }
 
-    public WebElement getDownloadsTableLink() {
-        return downloadsTableLink;
-    }
 
-    public WebElement getRecurringPaymentsTableLink() {
-        return recurringPaymentsTableLink;
-    }
 
-    public WebElement getRewardPointsTableLink() {
-        return rewardPointsTableLink;
-    }
 
-    public WebElement getReturnsTableLink() {
-        return returnsTableLink;
-    }
 
-    public WebElement getTransactionsTableLink() {
-        return transactionsTableLink;
-    }
 
-    public WebElement getNewsLetterTableLink() {
-        return newsLetterTableLink;
-    }
-
-    public WebElement getLogoutTableLink() {
-        return logoutTableLink;
-    }
 
     public WebElement getNavMenuItemMyAccount() {
         return navMenuItemMyAccount;

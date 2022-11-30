@@ -168,6 +168,27 @@ public class MyAccountSteps {
     }
 
 
+    @When("I click My Account menu in form of table on the right of screen")
+    public void iClickMyAccountMenuInFormOfTableOnTheRightOfScreen() throws Exception {
+        myAccountPage.clickMyAccountTableLink();
+        Thread.sleep(2000);
+
+    }
+
+    @And("I click \"Edit your account information\" on the left of screen under My Account title")
+    public void iClickEditYourAccountInformationOnTheLeftOfScreenUnderMyAccountTitle() throws  Exception{
+        myAccountPage.clickEditYourAccountInfoTextLink();
+        Thread.sleep(2000);
+    }
+
+
+    @Then("I click Continue button to save changes")
+    public void iClickContinueButtonToSaveChanges() {
+        editMyAccountInfoPage.clickContinueButton();
+    }
+
+    @Then("I see <oldFirstName> in First Name field and change it to <newFirstName>")
+    public void iSeeOldFirstNameInFirstNameFieldAndChangeItToNewFirstName( String oldFirstName, String newFirstName) {
+
+    }
 }
-
-
