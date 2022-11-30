@@ -42,6 +42,8 @@ public class MyAccountSteps {
 
     static LoginPage loginPage;
 
+    static List<String> updatedAccountInfo;
+
 
     public MyAccountSteps() {
 
@@ -99,7 +101,8 @@ public class MyAccountSteps {
         driver.get(loginPage.getUrl());
 
 //        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(loginPage.getLoginEmail().getAttribute("id"))));
-        loginPage.inputLoginEmail("mari.test@yahoo.com");
+        loginPage.inputLoginEmail("Test_email@test.com");
+//        loginPage.inputLoginEmail("mari.test@yahoo.com");
 
 //        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(loginPage.getLoginPassword().getAttribute("id"))));
         loginPage.inputLoginPassword("MariTest1");
@@ -175,14 +178,14 @@ public class MyAccountSteps {
     @When("I click My Account menu in form of table on the right of screen")
     public void iClickMyAccountMenuInFormOfTableOnTheRightOfScreen() throws Exception {
         myAccountPage.clickMyAccountTableLink();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
 
     }
 
     @And("I click \"Edit your account information\" on the left of screen under My Account title")
     public void iClickEditYourAccountInformationOnTheLeftOfScreenUnderMyAccountTitle() throws  Exception{
         myAccountPage.clickEditYourAccountInfoTextLink();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
     }
 
 
@@ -191,9 +194,23 @@ public class MyAccountSteps {
         editMyAccountInfoPage.clickContinueButton();
     }
 
-    @Then("I see <oldFirstName> in First Name field and change it to <newFirstName>")
-    public void iSeeOldFirstNameInFirstNameFieldAndChangeItToNewFirstName( String oldFirstName, String newFirstName) {
+    @Then("I change data in form fields:")
+    public void iChangeDataInFormFields(Map<String, String> accountInfo) throws Exception {
+        editMyAccountInfoPage.changeFirstName(accountInfo.get("firstName"));
+        editMyAccountInfoPage.changeLastName(accountInfo.get("lastName"));
+        editMyAccountInfoPage.changeEmail(accountInfo.get("eMail"));
+        editMyAccountInfoPage.changeTelephone(accountInfo.get("telephone"));
 
+        List<String> inputValues = new ArrayList<>(accountInfo.values());
+        System.out.println("inputValues: " + inputValues);
+
+        updatedAccountInfo = editMyAccountInfoPage.updatedAccountInfo();
+
+        System.out.println("updatedAccountInfo: " + updatedAccountInfo);
+
+        assertTrue(updatedAccountInfo.containsAll(inputValues));
+
+        Thread.sleep(1000);
     }
 
     @When("I enter valid firstname {string}")

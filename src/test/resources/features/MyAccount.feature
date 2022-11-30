@@ -21,15 +21,20 @@ Feature: User is able to access and manipulate with account
       | Newsletter         |
       | Logout             |
 
-#  Scenario Outline: User is able to see and edit his/her personal information (positive scenario)
-#    When I click My Account menu in form of table on the right of screen
-#    And I click "Edit your account information" on the left of screen under My Account title
-#    Then I see <oldFirstName> in First Name field and change it to <newFirstName>
-#    And I see <oldLastName> in Last Name field and change it to <newLastName>
-#    And I see <oldEmail> in E-Mail field and change it to <newEmail>
-#    And I see <oldTelephone> in Telephone field and change it to <newTelephone>
-#    Then I click Continue button to save changes
-#    Examples:
+
+  Scenario Outline: User is able to see and edit his/her personal information (10.1 positive scenario)
+    When I click My Account menu in form of table on the right of screen
+    And I click "Edit your account information" on the left of screen under My Account title
+    Then I change data in form fields:
+      | firstName | <newFirstName> |
+      | lastName  | <newLastName>  |
+      | eMail     | <newEmail>     |
+      | telephone | <newTelephone> |
+    And I click Continue button to save changes
+    Examples:
+      | newFirstName | newLastName    | newEmail            | newTelephone |
+      | Test_name    | Test_last_name | Test_email@test.com | 12345678910  |
+
 #      | oldFirstName | newFirstName | oldLastName | newLastName    | oldEmail            | newEmail            | oldTelephone | newTelephone |
 #      | Mari         | Test_name    | Test        | Test_last_name | mari.test@yahoo.com | Test_email@test.com | 1111122222   | 12345678910  |
 
