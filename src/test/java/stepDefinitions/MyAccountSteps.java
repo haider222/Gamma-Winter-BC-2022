@@ -13,10 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pages_sample.EditMyAccountInfoPage;
-import pages_sample.LoginPage;
-import pages_sample.MyAccountPage;
-import pages_sample.RegistrationPage;
+import pages_sample.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +34,11 @@ public class MyAccountSteps {
 
     static LoginPage loginPage;
 
-    static List<String> updatedAccountInfo;
+    static AddEditAddressPage addEditAddressPage;
 
-    static List<String> temporaryUpdatedAccountInfo;
+    static  AddressListPage addressListPage;
+
+    static List<String> updatedAccountInfo;
 
 
     public MyAccountSteps() {
@@ -50,6 +49,8 @@ public class MyAccountSteps {
         editMyAccountInfoPage = PageFactory.initElements(stepDefinitions.Hooks.driver, EditMyAccountInfoPage.class);
         registrationPage = PageFactory.initElements(stepDefinitions.Hooks.driver, RegistrationPage.class);
         loginPage = PageFactory.initElements(stepDefinitions.Hooks.driver, LoginPage.class);
+        addEditAddressPage = PageFactory.initElements(stepDefinitions.Hooks.driver, AddEditAddressPage.class);
+        addressListPage = PageFactory.initElements(stepDefinitions.Hooks.driver, AddressListPage.class);
 
 
     }

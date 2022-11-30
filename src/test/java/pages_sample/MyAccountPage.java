@@ -19,8 +19,12 @@ public class MyAccountPage {
 
 //    //*[@id="top-links"]/ul/li[@class="dropdown open"]/a/span[text()="My Account"]
 
-    @FindBy(how = How.XPATH, using = "//ul[@class=\"list-inline\"]/li[@class=\"dropdown open\"]/" +
-            "ul[@class=\"dropdown-menu dropdown-menu-right\"]/li/a[contains(text(), \"My Account\")]")
+//    @FindBy(how = How.XPATH, using = "//ul[@class=\"list-inline\"]/li[@class=\"dropdown open\"]/" +
+//            "ul[@class=\"dropdown-menu dropdown-menu-right\"]/li/a[contains(text(), \"My Account\")]")
+//    private WebElement subMenuItemMyAccount;
+
+
+    @FindBy(how = How.XPATH, using = "//ul[@class=\"list-inline\"]/li/ul/li/a[contains(text(), \"My Account\")]")
     private WebElement subMenuItemMyAccount;
     @FindBy(how = How.CSS, using = "div.list-group>a")
     private List<WebElement> listTableLinks;

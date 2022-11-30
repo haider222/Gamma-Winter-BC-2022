@@ -16,7 +16,7 @@ Feature: New account registration and login
     And I see My Account heading in large font on the left side of the screen
     Examples:
       | firstname | lastname | email           | number  | password | confpassword |
-      | Tom       | Doe      | t.doe9@gmail.com | 1234567 | qwerty   | qwerty       |
+      | Tom       | Doe      | t.doe10@gmail.com | 1234567 | qwerty   | qwerty       |
 
   Scenario Outline: Login -Valid credentials(8.7)
     When I am on Login page

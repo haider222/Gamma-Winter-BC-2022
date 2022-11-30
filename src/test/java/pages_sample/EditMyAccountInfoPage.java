@@ -37,20 +37,16 @@ public class EditMyAccountInfoPage {
     @FindBy(how = How.XPATH, using = "//a[text()=\"Back\"]")
     private WebElement backButton;
 
-    @FindBy(how = How.XPATH, using = "//*[@id=\"content\"]/form/fieldset/div[@class=\"form-group required has-error\"]/" +
-            "div[@class=\"col-sm-10\"]/div[@class=\"text-danger\" and contains(text(), \"First Name\")]")
+    @FindBy(how = How.XPATH, using = "//*[@class=\"text-danger\" and starts-with(text(),\"First Name\")]")
     private WebElement dangerTextFirstName;
 
-    @FindBy(how = How.XPATH, using = "//*[@id=\"content\"]/form/fieldset/div[@class=\"form-group required has-error\"]/" +
-            "div[@class=\"col-sm-10\"]/div[@class=\"text-danger\" and contains(text(), \"Last Name\")]")
+    @FindBy(how = How.XPATH, using = "//*[@class=\"text-danger\" and starts-with(text(),\"Last Name\")]")
     private WebElement dangerTextLastName;
 
-    @FindBy(how = How.XPATH, using = "//*[@id=\"content\"]/form/fieldset/div[@class=\"form-group required has-error\"]/" +
-            "div[@class=\"col-sm-10\"]/div[@class=\"text-danger\" and contains(text(), \"E-Mail\")]")
+    @FindBy(how = How.XPATH, using = "//*[@class=\"text-danger\" and starts-with(text(),\"E-Mail\")]")
     private WebElement dangerTextEmail;
 
-    @FindBy(how = How.XPATH, using = "//*[@id=\"content\"]/form/fieldset/div[@class=\"form-group required has-error\"]/" +
-            "div[@class=\"col-sm-10\"]/div[@class=\"text-danger\" and contains(text(), \"Telephone\")]")
+    @FindBy(how = How.XPATH, using = "//*[@class=\"text-danger\" and starts-with(text(),\"Telephone\")]")
     private WebElement dangerTextTelephone;
 
 

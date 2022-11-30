@@ -33,6 +33,8 @@ public class RegistrationPage {
     @FindBy(how = How.CLASS_NAME, using = "btn-primary")
     private WebElement continueAfterRegistrationButton;
 
+
+
 //    Your Account Has Been Created!
 
     public WebElement getAccountHasBeenCreatedMessageHeading(){
