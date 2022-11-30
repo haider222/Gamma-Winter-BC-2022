@@ -27,6 +27,22 @@ public class RegistrationPage {
     @FindBy(how = How.CSS, using = "input[value=\"Continue\"][type=\"submit\"]")
     WebElement continueButton;
 
+    @FindBy(how = How.CSS, using = "#content>h1")
+    private WebElement accountHasBeenCreatedMessageHeading;
+
+    @FindBy(how = How.CLASS_NAME, using = "btn-primary")
+    private WebElement continueAfterRegistrationButton;
+
+//    Your Account Has Been Created!
+
+    public WebElement getAccountHasBeenCreatedMessageHeading(){
+        return accountHasBeenCreatedMessageHeading;
+    }
+
+    public void clickContinueAfterRegistrationButton(){
+        continueAfterRegistrationButton.click();
+    }
+
     public String getPageUrl() {
 
         return "http://www.demoshop24.com/index.php?route=account/register";

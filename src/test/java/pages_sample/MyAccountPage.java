@@ -66,8 +66,12 @@ public class MyAccountPage {
     private WebElement modifyYourAddressBookTextLink;
     @FindBy(how = How.CSS, using = "//*[text()='Register']")
     private WebElement registerButton;
+
     @FindBy(how = How.CSS, using = "#account-account>.alert-success")
     private WebElement accountUpdateSuccessMessage;
+
+    @FindBy(how = How.XPATH, using = "//*[@id=\"content\"]/h2[text()=\"My Account\"]")
+    private WebElement myAccountHeading;
 
 //    @FindBy(how = How.XPATH, using = "//*[@id=\"account-account\"]/div[@class=\"alert alert-success alert-dismissible\"]")
 //    private WebElement accountUpdateSuccessMessage;
@@ -77,6 +81,8 @@ public class MyAccountPage {
 //            ".alert-success.alert-dismissible")
 
 
+
+    public WebElement getMyAccountHeading(){ return myAccountHeading; }
 
     public void clickOnRegister() {
         registerButton.click();

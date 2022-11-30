@@ -167,8 +167,9 @@ public class MyAccountSteps {
 
 
     @And("I click continue button")
-    public void iClickContinueButton() {
+    public void iClickContinueButton() throws  Exception{
         registrationPage.clicContinuekButton();
+        Thread.sleep(3000);
     }
 
 
@@ -407,5 +408,22 @@ public class MyAccountSteps {
 //        System.out.println("actualValues: " + actualValues);
 
         Thread.sleep(2000);
+    }
+
+
+    @And("I see confirmation page with message {string}")
+    public void iSeeConfirmationPageWithMessage(String messageTitle) {
+        assertTrue(registrationPage.getAccountHasBeenCreatedMessageHeading().isDisplayed());
+//        System.out.println(registrationPage.getAccountHasBeenCreatedMessageHeading().getText());
+    }
+
+    @And("I click continue button to complete registration")
+    public void iClickContinueButtonToCompleteRegistration() {
+        registrationPage.clickContinueAfterRegistrationButton();
+    }
+
+    @And("I see My Account heading in large font on the left side of the screen")
+    public void iSeeMyAccountHeadingInLargeFontOnTheLeftSideOfTheScreen() {
+        assertTrue(myAccountPage.getMyAccountHeading().isDisplayed());
     }
 }
