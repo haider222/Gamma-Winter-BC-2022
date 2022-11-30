@@ -187,8 +187,12 @@ public class MyAccountSteps {
         editMyAccountInfoPage.clickContinueButton();
     }
 
-    @Then("I see <oldFirstName> in First Name field and change it to <newFirstName>")
-    public void iSeeOldFirstNameInFirstNameFieldAndChangeItToNewFirstName( String oldFirstName, String newFirstName) {
-
+    @Then("I change data in form fields:")
+    public void iChangeDataInFormFields(Map<String, String> accountInfo) throws Exception {
+        editMyAccountInfoPage.changeFirstName(accountInfo.get("firstName"));
+        editMyAccountInfoPage.changeLastName(accountInfo.get("lastName"));
+        editMyAccountInfoPage.changeEmail(accountInfo.get("eMail"));
+        editMyAccountInfoPage.changeTelephone(accountInfo.get("telephone"));
+        Thread.sleep(2000);
     }
 }

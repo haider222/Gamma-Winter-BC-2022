@@ -100,13 +100,6 @@ public class MyAccountPage {
     }
 
 
-
-
-
-
-
-
-
     public WebElement getNavMenuItemMyAccount() {
         return navMenuItemMyAccount;
     }

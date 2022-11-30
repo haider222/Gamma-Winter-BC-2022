@@ -6,16 +6,26 @@ import org.openqa.selenium.support.How;
 
 public class EditMyAccountInfoPage {
 
-    @FindBy(how = How.ID, using = "#input-firstname")
+//    @FindBy(how = How.ID, using = "#input-firstname")
+//    private WebElement inputFirstName;
+//    @FindBy(how = How.ID, using = "#input-lastname")
+//    private WebElement inputLastName;
+//    @FindBy(how = How.ID, using = "#input-email")
+//    private WebElement inputEmail;
+//    @FindBy(how = How.ID, using = "#input-telephone")
+//    private WebElement inputTelephone;
+
+    @FindBy(how = How.CSS, using = "input[name=\"firstname\"")
     private WebElement inputFirstName;
 
-    @FindBy(how = How.ID, using = "#input-lastname")
+    @FindBy(how = How.CSS, using = "input[name=\"lastname\"]")
     private WebElement inputLastName;
 
-    @FindBy(how = How.ID, using = "#input-email")
+
+    @FindBy(how = How.CSS, using = "input[name=\"email\"]")
     private WebElement inputEmail;
 
-    @FindBy(how = How.ID, using = "#input-telephone")
+    @FindBy(how = How.CSS, using = "input[name=\"telephone\"]")
     private WebElement inputTelephone;
 
     @FindBy(how = How.CSS, using = "input[type=\"submit\"]")
@@ -48,6 +58,24 @@ public class EditMyAccountInfoPage {
     public void clickBackButton() {
         backButton.click();
     }
+
+    public void changeFirstName(String firstName){
+        inputFirstName.clear();
+        inputFirstName.sendKeys(firstName);
+    }
+    public void changeLastName(String lastName){
+        inputLastName.clear();
+        inputLastName.sendKeys(lastName);
+    }
+    public void changeEmail(String eMail){
+        inputEmail.clear();
+        inputEmail.sendKeys(eMail);
+    }
+    public void changeTelephone(String telephone){
+        inputTelephone.clear();
+        inputTelephone.sendKeys(telephone);
+    }
+
 
 
 }
