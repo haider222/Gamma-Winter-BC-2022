@@ -1,11 +1,9 @@
 package pages_sample;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,7 +34,7 @@ public class EditMyAccountInfoPage {
     @FindBy(how = How.CSS, using = "input[type=\"submit\"]")
     private WebElement continueButton;
 
-    @FindBy(how = How.CSS, using = "//a[text()=\"Back\"]")
+    @FindBy(how = How.XPATH, using = "//a[text()=\"Back\"]")
     private WebElement backButton;
 
     @FindBy(how = How.XPATH, using = "//*[@id=\"content\"]/form/fieldset/div[@class=\"form-group required has-error\"]/" +
@@ -111,7 +109,7 @@ public class EditMyAccountInfoPage {
 
 
 
-    public List<String> updatedAccountInfo() {
+    public List<String> actualAccountInfo() {
         List<String>  updatedInfoList;
 
             String firstName = getFirstNameValue();
