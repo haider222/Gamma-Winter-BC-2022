@@ -20,6 +20,9 @@ public class AddressListPage {
 
 // To be used for Edit button  a.btn.btn-info
 // To be used for Delete button  a.btn.btn-danger
+    public void clickNewAddressButton() {
+        newAddressButton.click();
+    }
 
 
 //    public void clickAddressEditButton(String name, String job) {
