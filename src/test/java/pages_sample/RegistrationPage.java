@@ -3,35 +3,104 @@ package pages_sample;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.Select;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RegistrationPage {
     @FindBy(how = How.ID, using = "input-firstname")
-    WebElement firstNameInput;
+    private WebElement firstNameInput;
     @FindBy(how = How.ID, using = "input-lastname")
-    WebElement lastNameInput;
+    private WebElement lastNameInput;
     @FindBy(how = How.ID, using = "input-email")
-    WebElement emailInput;
+    private WebElement emailInput;
     @FindBy(how = How.ID, using = "input-telephone")
-    WebElement telephoneInput;
+    private WebElement telephoneInput;
     @FindBy(how = How.ID, using = "input-password")
-    WebElement passwordInput;
+    private WebElement passwordInput;
     @FindBy(how = How.ID, using = "input-confirm")
-    WebElement passwordConfirmInput;
+    private WebElement passwordConfirmInput;
     @FindBy(how = How.CSS, using = "input[value=\"0\"][type=\"radio\"]")
-    WebElement noRadioButton;
+    private WebElement noRadioButton;
     @FindBy(how = How.CSS, using = "[name=\"agree\"]")
-    WebElement privacyPlolicyRadioButton;
+    private WebElement privacyPlolicyRadioButton;
     @FindBy(how = How.CSS, using = "input[value=\"Continue\"][type=\"submit\"]")
-    WebElement continueButton;
-
+    private WebElement continueButton;
     @FindBy(how = How.CSS, using = "#content>h1")
     private WebElement accountHasBeenCreatedMessageHeading;
-
     @FindBy(how = How.CLASS_NAME, using = "btn-primary")
     private WebElement continueAfterRegistrationButton;
+    @FindBy(how = How.XPATH, using = "//*[@class=\"text-danger\" and contains(text(),\"match\")]")
+    private WebElement dangerTextConfPassword;
+    @FindBy(how = How.XPATH, using = "//*[@class=\"text-danger\" and contains(text(),\"Password\")]")
+    private WebElement dangerTextPassword;
+    @FindBy(how = How.XPATH, using = "//*[@class=\"text-danger\" and contains(text(),\"Telephone\")]")
+    private WebElement dangerTextTelephone;
+    @FindBy(how = How.XPATH, using = "//*[@class=\"text-danger\" and contains(text(),\"E-Mail\")]")
+    private WebElement dangerTextEmail;
+    @FindBy(how = How.XPATH, using = "//*[@class=\"text-danger\" and contains(text(),\"Last Name\")]")
+    private WebElement dangerTextLastname;
+    @FindBy(how = How.XPATH, using = "//*[@class=\"text-danger\" and contains(text(),\"First Name\")]")
+    private WebElement dangerTextFirstname;
+    @FindBy(how = How.XPATH, using = "//*[text()=' Warning: You must agree to the Privacy Policy!']")
+    private WebElement dangerTextPrivacyPolicy;
+
+    public void errorLastnameText() {
+        assertEquals("Last Name must be between 1 and 32 characters!", dangerTextLastname.getText());
+    }
+    public void errorPrivacyPolicyText() {
+        assertEquals("Warning: You must agree to the Privacy Policy!", dangerTextPrivacyPolicy.getText());
+    }
+    public void errorFirstnameText() {
+        assertEquals("First Name must be between 1 and 32 characters!", dangerTextFirstname.getText());
+    }
+    public void errorEmailText() {
+        assertEquals("E-Mail Address does not appear to be valid!", dangerTextEmail.getText());
+    }
+    public void errorTelephoneText() {
+        assertEquals("Telephone must be between 3 and 32 characters!", dangerTextTelephone.getText());
+    }
+    public void errorConfPasswordText() {
+        assertEquals("Password confirmation does not match password!", dangerTextConfPassword.getText());
+    }
+    public void errorPasswordText() {
+        assertEquals("Password must be between 4 and 20 characters!", dangerTextPassword.getText());
+    }
+    public void inputDataExceptPrivacyPolicy() {
+        firstNameInput.sendKeys("Albert");
+        lastNameInput.sendKeys("Einstein");
+        emailInput.sendKeys("a.einstein@physics.com");
+        telephoneInput.sendKeys("123456789");
+        passwordInput.sendKeys("E=mc2");
+        passwordConfirmInput.sendKeys("E=mc2");
+    }
+    public void inputDataExceptConfPassword() {
+        passwordInput.sendKeys("E=mc2");
+        passwordConfirmInput.clear();
+    }
+    public void inputDataExceptPassword() {
+        telephoneInput.sendKeys("123456789");
+        passwordInput.clear();
+    }
+    public void inputDataExceptTelephone() {
+        emailInput.sendKeys("a.einstein@physics.com");
+        telephoneInput.clear();
+    }
+    public void inputDataExceptFirstname() {
+        privatePolicyClick();
+        firstNameInput.clear();
+    }
+    public void inputDataExceptLastname() {
+        firstNameInput.sendKeys("Albert");
+        lastNameInput.clear();
+    }
+    public void inputDataExceptEmail() {
+        lastNameInput.sendKeys("Einstein");
+        emailInput.clear();
+    }
+
 
 
 

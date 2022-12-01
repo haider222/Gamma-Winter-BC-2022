@@ -540,6 +540,77 @@ public class MyAccountSteps {
     public void iSeeRegionErrorMessage() {
         addEditAddressPage.errorRegionText();
     }
+
+    @Then("I input all fields and do not mark Privacy Policy")
+    public void iInputAllFieldsAndDoNotMarkPrivacyPolicy() {
+        registrationPage.inputDataExceptPrivacyPolicy();
+    }
+
+    @Then("I mark Privacy Policy and delete Firstname")
+    public void iMarkPrivacyPolicyAndDeleteFirstname() {
+        registrationPage.inputDataExceptFirstname();
+    }
+
+    @Then("I input Firstname and delete Lastname")
+    public void iInputFirstnameAndDeleteLastname() {
+        registrationPage.inputDataExceptLastname();
+    }
+
+    @Then("I input Lastname and delete email")
+    public void iInputLastnameAndDeleteEmail() {
+        registrationPage.inputDataExceptEmail();
+    }
+
+    @Then("I input email and delete Telephone")
+    public void iInputEmailAndDeleteTelephone() {
+        registrationPage.inputDataExceptTelephone();
+    }
+
+    @Then("I input Telephone and delete Password")
+    public void iInputTelephoneAndDeletePassword() {
+        registrationPage.inputDataExceptPassword();
+    }
+
+    @Then("I input Password and delete Confirmation Password")
+    public void iInputPasswordAndDeleteConfirmationPassword() {
+        registrationPage.inputDataExceptConfPassword();
+    }
+
+    @And("I see Confirmation Password warning message")
+    public void iSeeConfirmationPasswordWarningMessage() {
+        registrationPage.errorConfPasswordText();
+    }
+
+    @And("I see Two Password warning messages")
+    public void iSeeTwoPasswordWarningMessages() {
+        registrationPage.errorPasswordText();
+        registrationPage.errorConfPasswordText();
+    }
+
+    @And("I see Telephone warning message")
+    public void iSeeTelephoneWarningMessage() {
+        registrationPage.errorTelephoneText();
+    }
+
+    @And("I see Privacy Policy warning message")
+    public void iSeePrivacyPolicyWarningMessage() {
+        registrationPage.errorPrivacyPolicyText();
+    }
+
+    @And("I see Firstname warning message")
+    public void iSeeFirstnameWarningMessage() {
+        registrationPage.errorFirstnameText();
+    }
+
+    @And("I see email warning message")
+    public void iSeeEmailWarningMessage() {
+        registrationPage.errorEmailText();
+    }
+
+    @And("I see Lastname warning message")
+    public void iSeeLastnameWarningMessage() {
+        registrationPage.errorLastnameText();
+    }
 }
 
 
