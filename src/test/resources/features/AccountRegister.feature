@@ -15,15 +15,15 @@ Feature: New account registration and login
     And I click continue button to complete registration
     And I see My Account heading in large font on the left side of the screen
     Examples:
-      | firstname | lastname | email           | number  | password | confpassword |
-      | Tom       | Doe      | t.doe22@gmail.com | 1234567 | qwerty   | qwerty       |
+      | firstname | lastname | email             | number  | password | confpassword |
+      | Tom       | Doe      | t.doe55@gmail.com | 1234567 | qwerty   | qwerty       |
 
   Scenario Outline: Login -Valid credentials(8,5)
     When I am on Login page
     Then I am logged in with "<email>" and "<password>"
     Examples:
-      | email           | password |
-      | t.doe22@gmail.com | qwerty   |
+      | email             | password |
+      | t.doe55@gmail.com | qwerty   |
 
   Scenario Outline: Registration info is the same as in account page (8,6)
     When I am logged in with "<email>" and "<password>"
@@ -32,8 +32,33 @@ Feature: New account registration and login
       | firstName | <firstname> |
       | lastName  | <lastname>  |
       | email     | <email>     |
-      | number | <number> |
+      | number    | <number>    |
     Examples:
-      | firstname | lastname | email           | number  |password |
-
+      | firstname | lastname | email             | number  | password |
       | Tom       | Doe      | t.doe22@gmail.com | 1234567 | qwerty   |
+
+  Scenario: Registration - input fields are mandatory (8,4)
+    When I am on register page
+    Then I input all fields and do not mark Privacy Policy
+    And I click continue button
+    And I see Privacy Policy warning message
+    Then I mark Privacy Policy and delete Firstname
+    And I click continue button
+    And I see Firstname warning message
+    Then I input Firstname and delete Lastname
+    And I click continue button
+    And I see Lastname warning message
+    Then I input Lastname and delete email
+    And I click continue button
+    And I see email warning message
+    Then I input email and delete Telephone
+    And I click continue button
+    And I see Telephone warning message
+    Then I input Telephone and delete Password
+    And I click continue button
+    And I see Two Password warning messages
+    Then I input Password and delete Confirmation Password
+    And I click continue button
+    And I see Confirmation Password warning message
+
+
