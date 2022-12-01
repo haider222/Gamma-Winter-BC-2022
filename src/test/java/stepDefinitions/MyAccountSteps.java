@@ -34,7 +34,7 @@ public class MyAccountSteps {
 
     static LoginPage loginPage;
 
-    static AddEditAddressPage addEditAddressPage;
+    static AddAddressPage addEditAddressPage;
 
     static  AddressListPage addressListPage;
 
@@ -49,7 +49,7 @@ public class MyAccountSteps {
         editMyAccountInfoPage = PageFactory.initElements(stepDefinitions.Hooks.driver, EditMyAccountInfoPage.class);
         registrationPage = PageFactory.initElements(stepDefinitions.Hooks.driver, RegistrationPage.class);
         loginPage = PageFactory.initElements(stepDefinitions.Hooks.driver, LoginPage.class);
-        addEditAddressPage = PageFactory.initElements(stepDefinitions.Hooks.driver, AddEditAddressPage.class);
+        addEditAddressPage = PageFactory.initElements(stepDefinitions.Hooks.driver, AddAddressPage.class);
         addressListPage = PageFactory.initElements(stepDefinitions.Hooks.driver, AddressListPage.class);
 
 
