@@ -343,6 +343,20 @@ public class MyAccountSteps {
 
         Thread.sleep(2000);
     }
+    @Then("I see registration data in fields:")
+    public void iSeeRegistrationDataInFields(Map<String, String> accountData) throws Exception {
+
+        List<String> expectedValues = new ArrayList<>(accountData.values());
+
+        List<String> actualValues = new ArrayList<>(editMyAccountInfoPage.actualAccountInfo());
+
+        assertTrue(actualValues.containsAll(expectedValues));
+
+//        System.out.println("expectedValues: " + expectedValues);
+//        System.out.println("actualValues: " + actualValues);
+
+        Thread.sleep(2000);
+    }
 
     @When("I click Edit Account menu, in form of table on the right of the screen")
     public void iClickEditAccountMenuInFormOfTableOnTheRightOfTheScreen() throws Exception{
@@ -426,5 +440,10 @@ public class MyAccountSteps {
     @And("I see My Account heading in large font on the left side of the screen")
     public void iSeeMyAccountHeadingInLargeFontOnTheLeftSideOfTheScreen() {
         assertTrue(myAccountPage.getMyAccountHeading().isDisplayed());
+    }
+
+    @When("I am on My Account page")
+    public void iAmOnMyAccountPage() {
+
     }
 }
