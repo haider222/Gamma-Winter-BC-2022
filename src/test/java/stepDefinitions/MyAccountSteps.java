@@ -1,9 +1,6 @@
 package stepDefinitions;
 
 
-
-
-
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,17 +9,12 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pages_sample.EditMyAccountInfoPage;
-import pages_sample.LoginPage;
-import pages_sample.MyAccountPage;
-import pages_sample.RegistrationPage;
+import pages_sample.*;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +34,10 @@ public class MyAccountSteps {
 
     static LoginPage loginPage;
 
+    static AddEditAddressPage addEditAddressPage;
+
+    static  AddressListPage addressListPage;
+
     static List<String> updatedAccountInfo;
 
 
@@ -53,6 +49,8 @@ public class MyAccountSteps {
         editMyAccountInfoPage = PageFactory.initElements(stepDefinitions.Hooks.driver, EditMyAccountInfoPage.class);
         registrationPage = PageFactory.initElements(stepDefinitions.Hooks.driver, RegistrationPage.class);
         loginPage = PageFactory.initElements(stepDefinitions.Hooks.driver, LoginPage.class);
+        addEditAddressPage = PageFactory.initElements(stepDefinitions.Hooks.driver, AddEditAddressPage.class);
+        addressListPage = PageFactory.initElements(stepDefinitions.Hooks.driver, AddressListPage.class);
 
 
     }
@@ -170,8 +168,9 @@ public class MyAccountSteps {
 
 
     @And("I click continue button")
-    public void iClickContinueButton() {
+    public void iClickContinueButton() throws  Exception{
         registrationPage.clicContinuekButton();
+        Thread.sleep(3000);
     }
 
 
@@ -189,26 +188,24 @@ public class MyAccountSteps {
     }
 
 
-    @Then("I click Continue button to save changes")
-    public void iClickContinueButtonToSaveChanges() {
+    @Then("I click Continue button to save data")
+    public void iClickContinueButtonToSaveData() {
         editMyAccountInfoPage.clickContinueButton();
     }
 
     @Then("I change data in form fields:")
-    public void iChangeDataInFormFields(Map<String, String> accountInfo) throws Exception {
-        editMyAccountInfoPage.changeFirstName(accountInfo.get("firstName"));
-        editMyAccountInfoPage.changeLastName(accountInfo.get("lastName"));
-        editMyAccountInfoPage.changeEmail(accountInfo.get("eMail"));
-        editMyAccountInfoPage.changeTelephone(accountInfo.get("telephone"));
+    public void iChangeDataInFormFields(Map<String, String> accountData) throws Exception {
+        editMyAccountInfoPage.changeFirstName(accountData.get("firstName"));
+        editMyAccountInfoPage.changeLastName(accountData.get("lastName"));
+        editMyAccountInfoPage.changeEmail(accountData.get("eMail"));
+        editMyAccountInfoPage.changeTelephone(accountData.get("telephone"));
 
-        List<String> inputValues = new ArrayList<>(accountInfo.values());
+        List<String> inputValues = new ArrayList<>(accountData.values());
         System.out.println("inputValues: " + inputValues);
 
-        updatedAccountInfo = editMyAccountInfoPage.updatedAccountInfo();
+        updatedAccountInfo = editMyAccountInfoPage.actualAccountInfo();
 
-        System.out.println("updatedAccountInfo: " + updatedAccountInfo);
-
-        assertTrue(updatedAccountInfo.containsAll(inputValues));
+//        System.out.println("updatedAccountInfo: " + updatedAccountInfo);
 
         Thread.sleep(1000);
     }
@@ -242,8 +239,6 @@ public class MyAccountSteps {
     public void iEnterValidPasswordConfirmation(String confpassword) {
         registrationPage.enterConfirmPassword(confpassword);
     }
-
-
 
 
     @And("I click on Register")
@@ -302,5 +297,134 @@ public class MyAccountSteps {
     @Then("I go to the My Account Information page")
     public void iGoToTheMyAccountInformationPage() {
         myAccountPage.clickEditYourAccountInfoTextLink();
+    }
+
+//    @And("I see message \'Success: Your account has been successfully updated.\' in My Account page")
+//    public void iSeeMessageSuccessYourAccountHasBeenSuccessfullyUpdatedInMyAccountPage() {
+//        System.out.println(myAccountPage.getAccountUpdateSuccessMessage().getText());
+//        System.out.println(myAccountPage.getAccountUpdateSuccessMessage().getCssValue("background-color"));
+//        System.out.println(myAccountPage.getAccountUpdateSuccessMessage().getCssValue("color"));
+//
+//    }
+
+    @And("I see message {string} in My Account page")
+    public void iSeeMessageInMyAccountPage(String expectedMessage) {
+        String actualMessage = myAccountPage.getAccountUpdateSuccessMessage().getText();
+        assertEquals(expectedMessage, actualMessage);
+
+//        System.out.println("expectedMessage: " + expectedMessage);
+//        System.out.println("actualMessage: " + actualMessage);
+    }
+
+    @And("I see message is in filled light-green box {string} with dark-green font {string}")
+    public void iSeeMessageIsInFilledLightGreenBoxWithDarkGreenFont(String expectedBoxColor, String expectedFontColor) {
+        String actualBoxColor = myAccountPage.getAccountUpdateSuccessMessage().getCssValue("background-color");
+        String actualFontColor = myAccountPage.getAccountUpdateSuccessMessage().getCssValue("color");
+        assertEquals(expectedBoxColor,actualBoxColor);
+        assertEquals(expectedFontColor, actualFontColor);
+
+//        System.out.println("expectedBoxColor:" + expectedBoxColor);
+//        System.out.println("expectedFontColor:" + expectedFontColor);
+//        System.out.println("actualBoxColor: " + actualBoxColor);
+//        System.out.println("actualFontColor: " + actualFontColor);
+    }
+
+    @Then("I see previously updated data in form fields:")
+    public void iSeePreviouslyUpdatedDataInFormFields(Map<String, String> accountData) throws Exception {
+
+        List<String> expectedValues = new ArrayList<>(accountData.values());
+
+        List<String> actualValues = new ArrayList<>(editMyAccountInfoPage.actualAccountInfo());
+
+        assertTrue(actualValues.containsAll(expectedValues));
+
+//        System.out.println("expectedValues: " + expectedValues);
+//        System.out.println("actualValues: " + actualValues);
+
+        Thread.sleep(2000);
+    }
+
+    @When("I click Edit Account menu, in form of table on the right of the screen")
+    public void iClickEditAccountMenuInFormOfTableOnTheRightOfTheScreen() throws Exception{
+        myAccountPage.clickEditAccountTableLink();
+        Thread.sleep(1000);
+
+    }
+
+    @And("Click Back button to avoid changes")
+    public void clickBackButtonToAvoidChanges() throws Exception{
+        editMyAccountInfoPage.clickBackButton();
+        Thread.sleep(2000);
+    }
+
+
+    @Then("I do not see any message on top of My Account title on My Account page")
+    public void iDoNotSeeAnyMessageOnTopOfMyAccountTitleOnMyAccountPage() {
+        assertFalse(myAccountPage.checkAccountUpdateSuccessMessageIsPresent());
+
+    }
+
+    @Then("I change data in form fields one more time:")
+    public void iChangeDataInFormFieldsOneMoreTime(Map<String, String> accountData) throws Exception {
+        editMyAccountInfoPage.changeFirstName(accountData.get("firstName"));
+        editMyAccountInfoPage.changeLastName(accountData.get("lastName"));
+        editMyAccountInfoPage.changeEmail(accountData.get("eMail"));
+        editMyAccountInfoPage.changeTelephone(accountData.get("telephone"));
+
+//        List<String> inputValues = new ArrayList<>(accountData.values());
+//        System.out.println("inputValues: " + inputValues);
+
+//        temporaryUpdatedAccountInfo = editMyAccountInfoPage.updatedAccountInfo();
+//
+//        System.out.println("temporaryUpdatedAccountInfo: " + temporaryUpdatedAccountInfo);
+
+//        assertTrue(temporaryUpdatedAccountInfo.containsAll(inputValues));
+
+        Thread.sleep(1000);
+    }
+
+    @Then("I do not see data from the last update")
+    public void iDoNotSeeDataFromTheLastUpdate(Map<String, String> accountData) throws Exception {
+        List<String> notExpectedValues = new ArrayList<>(accountData.values());
+        List<String> actualValues = new ArrayList<>(editMyAccountInfoPage.actualAccountInfo());
+
+        assertFalse(actualValues.containsAll(notExpectedValues));
+
+//        System.out.println("notExpectedValues: " + notExpectedValues);
+//        System.out.println("actualValues: " + actualValues);
+
+        Thread.sleep(1000);
+
+    }
+
+    @And("Instead I see data from earlier update")
+    public void insteadISeeDataFromEarlierUpdate(Map<String, String> accountData) throws Exception {
+        List<String> expectedValues = new ArrayList<>(accountData.values());
+
+        List<String> actualValues = new ArrayList<>(editMyAccountInfoPage.actualAccountInfo());
+
+        assertTrue(actualValues.containsAll(expectedValues));
+
+//        System.out.println("expectedValues: " + expectedValues);
+//        System.out.println("actualValues: " + actualValues);
+
+        Thread.sleep(2000);
+    }
+
+
+    @And("I see confirmation page with message {string}")
+    public void iSeeConfirmationPageWithMessage(String messageTitle) {
+        assertTrue(registrationPage.getAccountHasBeenCreatedMessageHeading().isDisplayed());
+//        System.out.println(registrationPage.getAccountHasBeenCreatedMessageHeading().getText());
+    }
+
+    @And("I click continue button to complete registration")
+    public void iClickContinueButtonToCompleteRegistration() {
+        registrationPage.clickContinueAfterRegistrationButton();
+    }
+
+    @And("I see My Account heading in large font on the left side of the screen")
+    public void iSeeMyAccountHeadingInLargeFontOnTheLeftSideOfTheScreen() {
+        assertTrue(myAccountPage.getMyAccountHeading().isDisplayed());
     }
 }

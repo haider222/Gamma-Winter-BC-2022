@@ -1,11 +1,9 @@
 package pages_sample;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,23 +34,19 @@ public class EditMyAccountInfoPage {
     @FindBy(how = How.CSS, using = "input[type=\"submit\"]")
     private WebElement continueButton;
 
-    @FindBy(how = How.CSS, using = "//a[text()=\"Back\"]")
+    @FindBy(how = How.XPATH, using = "//a[text()=\"Back\"]")
     private WebElement backButton;
 
-    @FindBy(how = How.XPATH, using = "//*[@id=\"content\"]/form/fieldset/div[@class=\"form-group required has-error\"]/" +
-            "div[@class=\"col-sm-10\"]/div[@class=\"text-danger\" and contains(text(), \"First Name\")]")
+    @FindBy(how = How.XPATH, using = "//*[@class=\"text-danger\" and starts-with(text(),\"First Name\")]")
     private WebElement dangerTextFirstName;
 
-    @FindBy(how = How.XPATH, using = "//*[@id=\"content\"]/form/fieldset/div[@class=\"form-group required has-error\"]/" +
-            "div[@class=\"col-sm-10\"]/div[@class=\"text-danger\" and contains(text(), \"Last Name\")]")
+    @FindBy(how = How.XPATH, using = "//*[@class=\"text-danger\" and starts-with(text(),\"Last Name\")]")
     private WebElement dangerTextLastName;
 
-    @FindBy(how = How.XPATH, using = "//*[@id=\"content\"]/form/fieldset/div[@class=\"form-group required has-error\"]/" +
-            "div[@class=\"col-sm-10\"]/div[@class=\"text-danger\" and contains(text(), \"E-Mail\")]")
+    @FindBy(how = How.XPATH, using = "//*[@class=\"text-danger\" and starts-with(text(),\"E-Mail\")]")
     private WebElement dangerTextEmail;
 
-    @FindBy(how = How.XPATH, using = "//*[@id=\"content\"]/form/fieldset/div[@class=\"form-group required has-error\"]/" +
-            "div[@class=\"col-sm-10\"]/div[@class=\"text-danger\" and contains(text(), \"Telephone\")]")
+    @FindBy(how = How.XPATH, using = "//*[@class=\"text-danger\" and starts-with(text(),\"Telephone\")]")
     private WebElement dangerTextTelephone;
 
 
@@ -111,7 +105,7 @@ public class EditMyAccountInfoPage {
 
 
 
-    public List<String> updatedAccountInfo() {
+    public List<String> actualAccountInfo() {
         List<String>  updatedInfoList;
 
             String firstName = getFirstNameValue();
