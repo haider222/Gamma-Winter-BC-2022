@@ -6,6 +6,7 @@ Feature: User is able to access and manipulate with account
   Scenario: All sub menu are on 'My Account' page (9.2)
     When I click navigation menu item My Account
     And I click sub menu item My Account
+    And I see My Account heading in large font on the left side of the screen
     Then I see menu in form of table column on the right side of screen
       | My Account         |
       | Edit Account       |
@@ -24,7 +25,8 @@ Feature: User is able to access and manipulate with account
 
   Scenario Outline: User is able to see and edit his/her personal information (10.1 positive scenario)
     When I click My Account menu in form of table on the right of screen
-    And I click "Edit your account information" on the left of screen under My Account title
+    And I click "Edit your account information" on the left of screen under My Account heading
+    And I see My Account Information heading in large font below navigation menu
     Then I change data in form fields:
       | firstName | <newFirstName> |
       | lastName  | <newLastName>  |
@@ -33,7 +35,7 @@ Feature: User is able to access and manipulate with account
     And I click Continue button to save data
     And I see message "Success: Your account has been successfully updated." in My Account page
     And I see message is in filled light-green box "rgba(223, 240, 216, 1)" with dark-green font "rgba(60, 118, 61, 1)"
-    When I click "Edit your account information" on the left of screen under My Account title
+    When I click "Edit your account information" on the left of screen under My Account heading
     Then I see previously updated data in form fields:
       | firstName | <newFirstName> |
       | lastName  | <newLastName>  |
@@ -84,7 +86,18 @@ Feature: User is able to access and manipulate with account
 
 
 
-Scenario: (Check mandatory fields are validated (10.2 - negative scenario)
-  When I click My Account menu in form of table on the right of screen
-  And I click "Edit your account information" on the left of screen under My Account title
-  Then I am
+Scenario: Mandatory fields are validated (10.2 - negative scenario)
+  When I click navigation menu item My Account
+  And I click sub menu item My Account
+  And I see My Account heading in large font on the left side of the screen
+  And I click "Edit your account information" on the left of screen under My Account heading
+  And I see My Account Information heading in large font below navigation menu
+  Then I delete "First Name", other fields left correctly filled and click Continue
+  And I see warning message under the "First Name" field: "First Name must be between 1 and 32 characters!"
+  Then I delete "Last Name", other fields left correctly filled and click Continue
+  And I see warning message under the "Last Name" field: "Last Name must be between 1 and 32 characters!"
+  Then I delete "E-mail", other fields left correctly filled and click Continue
+  And I see warning message under the "E-mail" field: "E-Mail Address does not appear to be valid!"
+  Then I delete "Telephone", other fields left correctly filled and click Continue
+  And I see warning message under the "Telephone" field: "Telephone must be between 3 and 32 characters!"
+

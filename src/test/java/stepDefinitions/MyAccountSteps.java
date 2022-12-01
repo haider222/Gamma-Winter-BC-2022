@@ -153,8 +153,8 @@ public class MyAccountSteps {
 
     }
 
-    @And("I click \"Edit your account information\" on the left of screen under My Account title")
-    public void iClickEditYourAccountInformationOnTheLeftOfScreenUnderMyAccountTitle() throws  Exception{
+    @And("I click \"Edit your account information\" on the left of screen under My Account heading")
+    public void iClickEditYourAccountInformationOnTheLeftOfScreenUnderMyAccountHeading() throws  Exception{
         myAccountPage.clickEditYourAccountInfoTextLink();
         Thread.sleep(1000);
     }
@@ -697,6 +697,56 @@ public class MyAccountSteps {
     @Then("I am on Edit Address page")
     public void iAmOnEditAddressPage() {
         assertTrue(addEditAddressPage.getEditPageHeading().isDisplayed());
+    }
+
+    @Then("I delete First Name, other fields left correctly filled and click Continue")
+    public void iDeleteFirstNameOtherFieldsLeftCorrectlyFilledAndClickContinue() {
+        editMyAccountInfoPage.changeFirstName("");
+        editMyAccountInfoPage.clickContinueButton();
+    }
+
+    @And("I see warning message {string} under the field: {string}")
+    public void iSeeWarningMessageUnderTheField(String message) {
+        assertEquals(message, editMyAccountInfoPage.getDangerTextFirstName().getText());
+    }
+
+
+    @And("I delete Last Name, other fields left correctly filled and click Continue")
+    public void iDeleteLastNameOtherFieldsLeftCorrectlyFilledAndClickContinue() {
+        editMyAccountInfoPage.changeLastName("");
+        editMyAccountInfoPage.clickContinueButton();
+    }
+
+
+    @And("I see warning message under the {string} field: {string}")
+    public void iSeeWarningMessageUnderTheField(String fieldName, String message) {
+        if (fieldName.contains("First")) { assertEquals(message, editMyAccountInfoPage.getDangerTextFirstName().getText());}
+        else if (fieldName.contains("Last")){assertEquals(message, editMyAccountInfoPage.getDangerTextLastName().getText());}
+        else if (fieldName.contains("E-mail")){assertEquals(message, editMyAccountInfoPage.getDangerTextEmail().getText());}
+        else {assertEquals(message, editMyAccountInfoPage.getDangerTextTelephone().getText());}
+
+    }
+
+    @Then("I delete {string}, other fields left correctly filled and click Continue")
+    public void iDeleteOtherFieldsLeftCorrectlyFilledAndClickContinue(String fieldName) {
+        if (fieldName.contains("First")) {
+            editMyAccountInfoPage.changeFirstName("");
+            editMyAccountInfoPage.clickContinueButton();
+        } else if (fieldName.contains("Last")) {
+            editMyAccountInfoPage.changeLastName("");
+            editMyAccountInfoPage.clickContinueButton();
+        } else if (fieldName.contains("E-mail")) {
+            editMyAccountInfoPage.changeEmail("");
+            editMyAccountInfoPage.clickContinueButton();
+        } else {
+            editMyAccountInfoPage.changeTelephone("");
+            editMyAccountInfoPage.clickContinueButton();
+        }
+    }
+
+    @And("I see My Account Information heading in large font below navigation menu")
+    public void iSeeMyAccountInformationHeadingInLargeFontBelowNavigationMenu() {
+        assertTrue(editMyAccountInfoPage.getMyAccountInformationHeading().isDisplayed());
     }
 }
 

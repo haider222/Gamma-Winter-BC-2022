@@ -49,6 +49,9 @@ public class EditMyAccountInfoPage {
     @FindBy(how = How.XPATH, using = "//*[@class=\"text-danger\" and starts-with(text(),\"Telephone\")]")
     private WebElement dangerTextTelephone;
 
+    @FindBy(how = How.CSS, using = "#content>h1")
+    private WebElement myAccountInformationHeading;
+
 
     public void clickContinueButton() {
         continueButton.click();
@@ -69,6 +72,8 @@ public class EditMyAccountInfoPage {
     public void textInTelephoneInput() {
         inputTelephone.getText();
     }
+
+    public WebElement getMyAccountInformationHeading() { return myAccountInformationHeading;}
 
 
     public WebElement getDangerTextFirstName() {
