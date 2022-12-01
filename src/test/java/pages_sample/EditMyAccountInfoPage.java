@@ -49,6 +49,9 @@ public class EditMyAccountInfoPage {
     @FindBy(how = How.XPATH, using = "//*[@class=\"text-danger\" and starts-with(text(),\"Telephone\")]")
     private WebElement dangerTextTelephone;
 
+    @FindBy(how = How.CSS, using = "#content>h1")
+    private WebElement myAccountInformationHeading;
+
 
     public void clickContinueButton() {
         continueButton.click();
@@ -70,6 +73,24 @@ public class EditMyAccountInfoPage {
         inputTelephone.getText();
     }
 
+    public WebElement getMyAccountInformationHeading() { return myAccountInformationHeading;}
+
+
+    public WebElement getDangerTextFirstName() {
+        return dangerTextFirstName;
+    }
+
+    public WebElement getDangerTextLastName() {
+        return dangerTextLastName;
+    }
+
+    public WebElement getDangerTextEmail() {
+        return dangerTextEmail;
+    }
+
+    public WebElement getDangerTextTelephone() {
+        return dangerTextTelephone;
+    }
 
     public void changeFirstName(String firstName){
         inputFirstName.clear();

@@ -9,13 +9,13 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages_sample.*;
 
-import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -153,8 +153,8 @@ public class MyAccountSteps {
 
     }
 
-    @And("I click \"Edit your account information\" on the left of screen under My Account title")
-    public void iClickEditYourAccountInformationOnTheLeftOfScreenUnderMyAccountTitle() throws  Exception{
+    @And("I click \"Edit your account information\" on the left of screen under My Account heading")
+    public void iClickEditYourAccountInformationOnTheLeftOfScreenUnderMyAccountHeading() throws  Exception{
         myAccountPage.clickEditYourAccountInfoTextLink();
         Thread.sleep(1000);
     }
@@ -417,8 +417,8 @@ public class MyAccountSteps {
         addressListPage.clickNewAddressButton();
     }
 
-    @And("I see the mandatory input field are availiable")
-    public void iSeeTheMandatoryInputFieldAreAvailiable() {
+    @And("I see the mandatory input field are available")
+    public void iSeeTheMandatoryInputFieldAreAvailable() {
         addEditAddressPage.fieldsAreAvailiable();
     }
 
@@ -453,14 +453,34 @@ public class MyAccountSteps {
         addEditAddressPage.chooseRegionOption(region);
     }
 
-    @Then("I click Yes to use address as defoult")
-    public void iClickYesToUseAddressAsDefoult() {
+    @Then("I click Yes to use address as default")
+    public void iClickYesToUseAddressAsDefault() throws Exception{
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,600)", "");
+
+        Thread.sleep(500);
         addEditAddressPage.clickYesRadioButton();
+        Thread.sleep(2000);
     }
 
     @And("I press Continue button")
     public void iPressContinueButton() {
         addEditAddressPage.clickContinueButton();
+    }
+
+    @When("I select address as by data below and click corresponding Edit button")
+    public void iSelectAddressAsByDataBelowAndClickCorrespondingEditButton(Map<String, String> address) throws Exception  {
+        String xPath = addressListPage.getAddressEditButtonXPath(address);
+        Thread.sleep(500);
+
+
+        WebElement editButton = driver.findElement(By.xpath(xPath));
+//        WebElement editButton = driver.findElement(By.xpath("//td[text()=\"MyName MyLastName\"]/following-sibling::td/a[@class=\"btn btn-info\"]"));
+        editButton.click();
+
+        Thread.sleep(2000);
+
     }
 
     @When("I am on Address page")
@@ -541,6 +561,29 @@ public class MyAccountSteps {
         addEditAddressPage.errorRegionText();
     }
 
+    @Then("Click Address Book menu in form of table on the right of screen")
+    public void clickAddressBookMenuInFormOfTableOnTheRightOfScreen() {
+        myAccountPage.clickAddressBookTableLink();
+    }
+
+    @And("I see the same data in Edit Address page")
+    public void iSeeTheSameDataInEditAddressPage(Map<String, String> addressData) throws  Exception{
+
+        List<String> expectedValues = new ArrayList<>(addressData.values());
+
+        List<String> actualValues = new ArrayList<>(addEditAddressPage.getActualAddressData());
+
+        assertTrue(actualValues.containsAll(expectedValues));
+
+//        System.out.println("expectedValues: " + expectedValues);
+//        System.out.println("actualValues: " + actualValues);
+
+        Thread.sleep(2000);
+
+    }
+
+
+
     @Then("I input all fields and do not mark Privacy Policy")
     public void iInputAllFieldsAndDoNotMarkPrivacyPolicy() {
         registrationPage.inputDataExceptPrivacyPolicy();
@@ -610,6 +653,100 @@ public class MyAccountSteps {
     @And("I see Lastname warning message")
     public void iSeeLastnameWarningMessage() {
         registrationPage.errorLastnameText();
+    }
+
+    @And("I set this address as default")
+    public void iSetThisAddressAsDefault() throws  Exception{
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,600)", "");
+        Thread.sleep(500);
+
+        addEditAddressPage.clickYesRadioButton();
+
+        Thread.sleep(2000);
+    }
+
+    @And("I see this is the default address")
+    public void iSeeThisIsTheDefaultAddress() throws Exception {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,600)", "");
+
+        Thread.sleep(500);
+        assertFalse(addEditAddressPage.getNoRadioButton().isSelected());
+
+        Thread.sleep(2000);
+    }
+
+    @And("I am on Address Book Entries page")
+    public void iAmOnAddressBookEntriesPage() {
+        assertTrue(addressListPage.getAddressBookEntriesHeading().isDisplayed());
+    }
+
+    @And("I see this address is not default")
+    public void iSeeThisAddressIsNotDefault() throws Exception{
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,600)", "");
+
+        Thread.sleep(500);
+        assertTrue(addEditAddressPage.getNoRadioButton().isSelected());
+
+        Thread.sleep(2000);
+    }
+
+    @Then("I am on Edit Address page")
+    public void iAmOnEditAddressPage() {
+        assertTrue(addEditAddressPage.getEditPageHeading().isDisplayed());
+    }
+
+    @Then("I delete First Name, other fields left correctly filled and click Continue")
+    public void iDeleteFirstNameOtherFieldsLeftCorrectlyFilledAndClickContinue() {
+        editMyAccountInfoPage.changeFirstName("");
+        editMyAccountInfoPage.clickContinueButton();
+    }
+
+    @And("I see warning message {string} under the field: {string}")
+    public void iSeeWarningMessageUnderTheField(String message) {
+        assertEquals(message, editMyAccountInfoPage.getDangerTextFirstName().getText());
+    }
+
+
+    @And("I delete Last Name, other fields left correctly filled and click Continue")
+    public void iDeleteLastNameOtherFieldsLeftCorrectlyFilledAndClickContinue() {
+        editMyAccountInfoPage.changeLastName("");
+        editMyAccountInfoPage.clickContinueButton();
+    }
+
+
+    @And("I see warning message under the {string} field: {string}")
+    public void iSeeWarningMessageUnderTheField(String fieldName, String message) {
+        if (fieldName.contains("First")) { assertEquals(message, editMyAccountInfoPage.getDangerTextFirstName().getText());}
+        else if (fieldName.contains("Last")){assertEquals(message, editMyAccountInfoPage.getDangerTextLastName().getText());}
+        else if (fieldName.contains("E-mail")){assertEquals(message, editMyAccountInfoPage.getDangerTextEmail().getText());}
+        else {assertEquals(message, editMyAccountInfoPage.getDangerTextTelephone().getText());}
+
+    }
+
+    @Then("I delete {string}, other fields left correctly filled and click Continue")
+    public void iDeleteOtherFieldsLeftCorrectlyFilledAndClickContinue(String fieldName) {
+        if (fieldName.contains("First")) {
+            editMyAccountInfoPage.changeFirstName("");
+            editMyAccountInfoPage.clickContinueButton();
+        } else if (fieldName.contains("Last")) {
+            editMyAccountInfoPage.changeLastName("");
+            editMyAccountInfoPage.clickContinueButton();
+        } else if (fieldName.contains("E-mail")) {
+            editMyAccountInfoPage.changeEmail("");
+            editMyAccountInfoPage.clickContinueButton();
+        } else {
+            editMyAccountInfoPage.changeTelephone("");
+            editMyAccountInfoPage.clickContinueButton();
+        }
+    }
+
+    @And("I see My Account Information heading in large font below navigation menu")
+    public void iSeeMyAccountInformationHeadingInLargeFontBelowNavigationMenu() {
+        assertTrue(editMyAccountInfoPage.getMyAccountInformationHeading().isDisplayed());
     }
 }
 

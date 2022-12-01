@@ -16,14 +16,14 @@ Feature: New account registration and login
     And I see My Account heading in large font on the left side of the screen
     Examples:
       | firstname | lastname | email             | number  | password | confpassword |
-      | Tom       | Doe      | t.doe55@gmail.com | 1234567 | qwerty   | qwerty       |
+      | Tom       | Doe      | t.doe56@gmail.com | 1234567 | qwerty   | qwerty       |
 
   Scenario Outline: Login -Valid credentials(8,5)
     When I am on Login page
     Then I am logged in with "<email>" and "<password>"
     Examples:
       | email             | password |
-      | t.doe55@gmail.com | qwerty   |
+      | t.doe56@gmail.com | qwerty   |
 
   Scenario Outline: Registration info is the same as in account page (8,6)
     When I am logged in with "<email>" and "<password>"
@@ -35,7 +35,7 @@ Feature: New account registration and login
       | number    | <number>    |
     Examples:
       | firstname | lastname | email             | number  | password |
-      | Tom       | Doe      | t.doe22@gmail.com | 1234567 | qwerty   |
+      | Tom       | Doe      | t.doe56@gmail.com | 1234567 | qwerty   |
 
   Scenario: Registration - input fields are mandatory (8,4)
     When I am on register page
