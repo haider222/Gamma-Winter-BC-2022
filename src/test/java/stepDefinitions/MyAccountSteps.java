@@ -446,4 +446,60 @@ public class MyAccountSteps {
     public void iAmOnMyAccountPage() {
 
     }
+
+    @Then("I click to Modify my address")
+    public void iClickToModifyMyAddress() {
+        myAccountPage.clickModifyYourAddressBookTextLink();
+    }
+
+    @And("I click on New Address Button")
+    public void iClickOnNewAddressButton() {
+        addressListPage.clickNewAddressButton();
+    }
+
+    @And("I see the mandatory input field are availiable")
+    public void iSeeTheMandatoryInputFieldAreAvailiable() {
+        addEditAddressPage.fieldsAreAvailiable();
+    }
+
+    @Then("I enter new firstname {string}")
+    public void iEnterNewFirstname(String firstname) {
+        addEditAddressPage.addName(firstname);
+    }
+
+    @And("I enter new lastname {string}")
+    public void iEnterNewLastname(String lastname) {
+        addEditAddressPage.addLastname(lastname);
+    }
+
+    @And("I enter new address {string}")
+    public void iEnterNewAddress(String address) {
+        addEditAddressPage.addAddres(address);
+    }
+
+    @Then("I enter new city {string} and postcode {string}")
+    public void iEnterNewCityAndPostcode(String city, String postcode) {
+        addEditAddressPage.addCityAndPostcode(city, postcode);
+    }
+
+    @And("I choose country name {string} from dropdown")
+    public void iChooseCountryNameFromDropdown(String mycountry) {
+        addEditAddressPage.chooseCountryOption(mycountry);
+
+    }
+
+    @And("I choose region {string} from dropdown")
+    public void iChooseRegionFromDropdown(String region) {
+        addEditAddressPage.chooseRegionOption(region);
+    }
+
+    @Then("I click Yes to use address as defoult")
+    public void iClickYesToUseAddressAsDefoult() {
+        addEditAddressPage.clickYesRadioButton();
+    }
+
+    @And("I press Continue button")
+    public void iPressContinueButton() {
+        addEditAddressPage.clickContinueButton();
+    }
 }
