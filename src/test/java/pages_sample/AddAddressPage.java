@@ -5,6 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,7 +27,7 @@ public class AddAddressPage {
     private WebElement address2;
 
     @FindBy (how = How.CSS, using = "#input-city")
-    private WebElement cityy;
+    private WebElement city;
 
     @FindBy (how = How.CSS, using = "#input-postcode")
     private WebElement postCode;
@@ -35,16 +36,16 @@ public class AddAddressPage {
     private WebElement country;
 
     @FindBy (how = How.CSS, using = "#input-zone")
-    private WebElement zone;
+    private WebElement region;
 
-    @FindBy (how = How.CSS, using = "#input[type=\"radio\"]")
-    private List<WebElement> defaultAddress;
+//    @FindBy (how = How.CSS, using = "#input[type=\"radio\"]")
+//    private List<WebElement> defaultAddress;
 
     @FindBy (how = How.CSS, using = "input[type=\"submit\"]")
     private WebElement continueButton;
 
-    @FindBy (how = How.CSS, using = "a.btn.btn-default")
-    private WebElement backButton;
+//    @FindBy (how = How.CSS, using = "a.btn.btn-default")
+//    private WebElement backButton;
 
     @FindBy (how = How.XPATH, using = "//*[@class=\"text-danger\" and starts-with(text(),\"First Name\")]")
     private WebElement textDangerFirstName;
@@ -62,19 +63,33 @@ public class AddAddressPage {
     private WebElement textDangerCountry;
     @FindBy (how = How.XPATH, using = "//*[@class=\"text-danger\" and contains(text(),\"state\")]")
     private WebElement textDangerRegion;
-    @FindBy (how = How.CSS, using = "input[value='1']")
+    @FindBy (how = How.CSS, using = "input[value='1'][type=\"radio\"]")
     private WebElement yesRadioButton;
+
+    @FindBy (how = How.CSS, using = "input[value='0'][type=\"radio\"]")
+    private WebElement noRadioButton;
+
+    @FindBy (how = How.CSS, using = "#content>h2")
+    private WebElement editPageTitle;
+
+
+
     public void clickContinueButton() {
         continueButton.click();
     }
+
+    public WebElement getNoRadioButton(){ return noRadioButton; }
+
+    public WebElement getEditPageTitle() { return editPageTitle; }
+
     public void fieldsAreAvailiable() {
         firstName.isDisplayed();
         lastName.isDisplayed();
         address1.isDisplayed();
-        cityy.isDisplayed();
+        city.isDisplayed();
         postCode.isDisplayed();
         country.isDisplayed();
-        zone.isDisplayed();
+        region.isDisplayed();
     }
     public void clickYesRadioButton() {
         yesRadioButton.click();
@@ -84,11 +99,11 @@ public class AddAddressPage {
         dropDown.selectByVisibleText(mycountry);
     }
     public void chooseRegionOption(String region) {
-        Select dropDownOne = new Select(zone);
+        Select dropDownOne = new Select(this.region);
         dropDownOne.selectByVisibleText(region);
     }
     public void addCityAndPostcode(String city, String postcode){
-        cityy.sendKeys(city);
+        this.city.sendKeys(city);
         postCode.sendKeys(postcode);
     }
     public void addAddres(String address) {
@@ -107,10 +122,10 @@ public class AddAddressPage {
     public void inputDataExceptName() {
         lastName.sendKeys("Mozart");
         address1.sendKeys("Domgrasse 5");
-        cityy.sendKeys("Vienna");
+        city.sendKeys("Vienna");
         Select dropDown = new Select(country);
         dropDown.selectByVisibleText("Austria");
-        Select dropDownTwo = new Select(zone);
+        Select dropDownTwo = new Select(region);
         dropDownTwo.selectByVisibleText("Wien");
     }
     public void errorNameText() {
@@ -142,16 +157,70 @@ public class AddAddressPage {
     }
     public void inputDataExceptCity() {
         address1.sendKeys("Domgrasse 5");
-        cityy.clear();
+        city.clear();
     }
     public void inputDataExceptCountry() {
-        cityy.sendKeys("Vienna");
+        city.sendKeys("Vienna");
         Select dropDown = new Select(country);
         dropDown.selectByIndex(0);
     }
     public void inputDataExceptRegion() {
         Select dropDown = new Select(country);
         dropDown.selectByVisibleText("Austria");
+    }
+
+    public String getFirstNameValue() {
+        return firstName.getAttribute("value");
+    }
+
+    public String getLastNameValue() {
+        return lastName.getAttribute("value");
+    }
+
+    public String getCompanyValue() {
+        return company.getAttribute("value");
+    }
+
+    public String getAddress1Value() {
+        return address1.getAttribute("value");
+    }
+
+    public String getCityValue() {
+        return city.getAttribute("value");
+    }
+
+    public String getPostCodeValue() {
+        return postCode.getAttribute("value");
+    }
+
+    public String getCountryValue() {
+        return country.getAttribute("value");
+    }
+
+    public String getRegionValue() {
+        return region.getAttribute("value");
+    }
+
+    public List<String> getActualAddressData() {
+        List<String>  actualInfoList;
+
+        String firstName = getFirstNameValue();
+        String lastName = getLastNameValue();
+        String address = getAddress1Value();
+        String city = getCityValue();
+        String postCode = getPostCodeValue();
+        Select dropDown = new Select(this.country);
+        String country = getCountryValue();
+        dropDown.selectByValue(country);
+        Select dropDown2 = new Select(this.region);
+        String region = getRegionValue();
+        dropDown2.selectByValue(region);
+
+
+        actualInfoList = Arrays.asList(firstName, lastName, address, city, postCode, country, region);
+
+        System.out.println("actualInfoList:" + actualInfoList);
+        return actualInfoList;
     }
 
 }

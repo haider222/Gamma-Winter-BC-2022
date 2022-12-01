@@ -65,11 +65,18 @@ Feature: User is able to manipulate with address book
     And I see Region error message
 
 
-
-
-
   Scenario Outline: Edit address
-    When I select address as by data below and click corresponding Edit button
+    When I see My Account heading in large font on the left side of the screen
+    Then Click Address Book menu in form of table on the right of screen
+    And I select address as by data below and click corresponding Edit button
+      | firstName | <firstName> |
+      | lastName  | <lastName>  |
+      | address   | <address>   |
+      | city      | <city>      |
+      | postCode  | <postCode>  |
+      | country   | <country>   |
+      | region    | <region>    |
+    And I see the same data in Edit Address page
       | firstName | <firstName> |
       | lastName  | <lastName>  |
       | address   | <address>   |
@@ -78,6 +85,6 @@ Feature: User is able to manipulate with address book
       | country   | <country>   |
       | region    | <region>    |
     Examples:
-      | firstName | lastName   | address   | city   | postCode   | country | region |
-      | MyName    | MyLastName | MyAddress | MyCity | myPostCode | China   | Gansu  |
+      | firstName | lastName   | address             | city   | postCode   | country | region |
+      | MyName    | MyLastName | MyAddress street 25 | MyCity | myPostCode | China   | Gansu  |
 

@@ -465,11 +465,17 @@ public class MyAccountSteps {
 
     @When("I select address as by data below and click corresponding Edit button")
     public void iSelectAddressAsByDataBelowAndClickCorrespondingEditButton(Map<String, String> address) throws Exception  {
-        addressListPage.clickAddressEditButton(address);
+        String xPath = addressListPage.getAddressEditButtonXPath(address);
+        Thread.sleep(500);
 
+
+        WebElement editButton = driver.findElement(By.xpath(xPath));
+//        WebElement editButton = driver.findElement(By.xpath("//td[text()=\"MyName MyLastName\"]/following-sibling::td/a[@class=\"btn btn-info\"]"));
+        editButton.click();
+
+        Thread.sleep(2000);
 
     }
-}
 
     @When("I am on Address page")
     public void iAmOnAddressPage() {
@@ -547,6 +553,16 @@ public class MyAccountSteps {
     @And("I see Region error message")
     public void iSeeRegionErrorMessage() {
         addEditAddressPage.errorRegionText();
+    }
+
+    @Then("Click Address Book menu in form of table on the right of screen")
+    public void clickAddressBookMenuInFormOfTableOnTheRightOfScreen() {
+        myAccountPage.clickAddressBookTableLink();
+    }
+
+    @And("I see the same data in Edit Address page")
+    public void iSeeTheSameDataInEditAddressPage(Map<String, String> addressData) {
+        addEditAddressPage.getActualAddressData();
     }
 }
 
