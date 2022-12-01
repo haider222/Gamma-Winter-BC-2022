@@ -1,6 +1,6 @@
 Feature: New account registration and login
 
-  Scenario Outline: Registration - Valid credentials (8.3) and User is on 'My Account" page after successful registration(9.1)
+  Scenario Outline: Registration - Valid credentials (8,1; 8,2) and User is on 'My Account" page after successful registration(9.1)
     When I am on register page
     And I enter valid firstname "<firstname>"
     Then I enter valid lastname "<lastname>"
@@ -18,15 +18,15 @@ Feature: New account registration and login
       | firstname | lastname | email           | number  | password | confpassword |
       | Tom       | Doe      | t.doe22@gmail.com | 1234567 | qwerty   | qwerty       |
 
-  Scenario Outline: Login -Valid credentials(8.7)
+  Scenario Outline: Login -Valid credentials(8,5)
     When I am on Login page
-    Then I am logged in with "<email>" and "<password>" and click Login
+    Then I am logged in with "<email>" and "<password>"
     Examples:
       | email           | password |
       | t.doe22@gmail.com | qwerty   |
 
-  Scenario Outline: Registration info is the same as in account page (8.8)
-    When I am logged in with "<email>" and "<password>" and click Login
+  Scenario Outline: Registration info is the same as in account page (8,6)
+    When I am logged in with "<email>" and "<password>"
     Then I go to the My Account Information page
     Then I see registration data in fields:
       | firstName | <firstname> |
