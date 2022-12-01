@@ -24,6 +24,9 @@ public class AddressListPage {
     public void clickNewAddressButton() {
         newAddressButton.click();
     }
+    public void clickBackButton() {
+        backButton.click();
+    }
 
 
     public void clickAddressEditButton(Map<String, String> accountData) throws Exception {

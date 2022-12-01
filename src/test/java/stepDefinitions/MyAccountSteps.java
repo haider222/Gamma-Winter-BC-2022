@@ -15,6 +15,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages_sample.*;
 
+import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -62,35 +63,6 @@ public class MyAccountSteps {
     }
 
 
-//    @When("I enter valid firstname")
-//    public void iEnterValidFirstname() {
-//        registrationPage.enterFirstName("John");
-//    }
-//
-//    @Then("I enter valid lastname")
-//    public void iEnterValidLastname() {
-//        registrationPage.enterLastName("Doe");
-//    }
-//
-//    @And("I enter valid Email")
-//    public void iEnterValidEmail() {
-//        registrationPage.enterEmail("john.doe@ggmaill.com");
-//    }
-//
-//    @And("I enter valid telephone")
-//    public void iEnterValidTelephone() {
-//        registrationPage.enterTelephoneNumber("1234567");
-//    }
-//
-//    @Then("I enter valid password")
-//    public void iEnterValidPassword() {
-//        registrationPage.enterPassword("qwerty");
-//    }
-//
-//    @And("I enter valid password confirmation")
-//    public void iEnterValidPasswordConfirmation() {
-//        registrationPage.enterConfirmPassword("qwerty");
-//    }
 
 
     @Given("I am logged in to the shop")
@@ -266,20 +238,12 @@ public class MyAccountSteps {
     public void iClickLoginButton() {
         loginPage.clickLoginButton();
     }
-    @When("I am logged in with {string} and {string} and click Login")
+    @When("I am logged in with {string} and {string}")
     public void iAmLoggedInp(String email, String password) throws Exception {
 
         driver.get(loginPage.getUrl());
-
-//        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(loginPage.getLoginEmail().getAttribute("id"))));
         loginPage.inputLoginEmail(email);
-
-//        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(loginPage.getLoginPassword().getAttribute("id"))));
         loginPage.inputLoginPassword(password);
-
-
-//        String path = loginPage.getWebElementSelector(loginPage.getLoginButton());
-//        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(path)));
         loginPage.clickLoginButton();
         Thread.sleep(1000);
     }
@@ -442,10 +406,6 @@ public class MyAccountSteps {
         assertTrue(myAccountPage.getMyAccountHeading().isDisplayed());
     }
 
-    @When("I am on My Account page")
-    public void iAmOnMyAccountPage() {
-
-    }
 
     @Then("I click to Modify my address")
     public void iClickToModifyMyAddress() {
@@ -510,3 +470,84 @@ public class MyAccountSteps {
 
     }
 }
+
+    @When("I am on Address page")
+    public void iAmOnAddressPage() {
+        driver.get(addEditAddressPage.getPageUrl());
+    }
+
+    @Then("I click on Back button")
+    public void iClickOnBackButton() {
+        addressListPage.clickBackButton();
+    }
+
+    @And("I check that I am on address page")
+    public void iCheckThatIAmOnAddressPage() {
+        assertEquals(addEditAddressPage.getPageUrl(), driver.getCurrentUrl() );
+
+    }
+
+    @Then("I fill in all fields except Firstname")
+    public void iFillInAllFieldsExceptFirstname() {
+        addEditAddressPage.inputDataExceptName();
+    }
+
+
+
+    @Then("I fill Firstname field and delete Lastname")
+    public void iFillFirstnameFieldAndDeleteLastname() {
+        addEditAddressPage.inputDataExceptLastName();
+    }
+
+    @Then("I fill Lastname and delete Address")
+    public void iFillLastnameAndDeleteAddress() {
+        addEditAddressPage.inputDataExceptAddress();
+    }
+
+    @Then("I fill Address and delete City")
+    public void iFillAddressAndDeleteCity() {
+        addEditAddressPage.inputDataExceptCity();
+    }
+
+    @Then("I fill City and clear Country dropdown")
+    public void iFillCityAndClearCountryDropdown() {
+        addEditAddressPage.inputDataExceptCountry();
+    }
+
+    @Then("I fill Country and do not fill Region")
+    public void iFillCountryAndDoNotFillRegion() {
+        addEditAddressPage.inputDataExceptRegion();
+    }
+
+    @And("I see firstname error message")
+    public void iSeeFirstnameErrorMessage() {
+        addEditAddressPage.errorNameText();
+    }
+
+    @And("I see Lastname error message")
+    public void iSeeLastnameErrorMessage() {
+        addEditAddressPage.errorLastnameText();
+    }
+
+    @And("I see Address error message")
+    public void iSeeAddressErrorMessage() {
+        addEditAddressPage.errorAddressText();
+    }
+
+    @And("I see City error message")
+    public void iSeeCityErrorMessage() {
+        addEditAddressPage.errorCityText();
+    }
+
+    @And("I see Country error message")
+    public void iSeeCountryErrorMessage() {
+        addEditAddressPage.errorCountryText();
+    }
+
+    @And("I see Region error message")
+    public void iSeeRegionErrorMessage() {
+        addEditAddressPage.errorRegionText();
+    }
+}
+
+
