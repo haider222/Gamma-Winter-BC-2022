@@ -86,6 +86,26 @@ Feature: User is able to manipulate with address book
       | postCode  | <postCode>  |
       | country   | <country>   |
       | region    | <region>    |
+    And I click Yes to use address as default
+    And I press Continue button
+    Then I am on Address Book Entries page
+    And I select address as by data below and click corresponding Edit button
+      | firstName | <firstName> |
+      | lastName  | <lastName>  |
+      | address   | <address>   |
+      | city      | <city>      |
+      | postCode  | <postCode>  |
+      | country   | <country>   |
+      | region    | <region>    |
+    Then I am on Edit Address page
+    And I see the same data in Edit Address page
+      | firstName | <firstName> |
+      | lastName  | <lastName>  |
+      | address   | <address>   |
+      | city      | <city>      |
+      | postCode  | <postCode>  |
+      | country   | <country>   |
+      | region    | <region>    |
     And I see this is the default address
     When I click on Back button
     And I am on Address Book Entries page

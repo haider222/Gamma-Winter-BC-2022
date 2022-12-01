@@ -83,3 +83,8 @@ Feature: User is able to access and manipulate with account
 #      | Mari         | Test_name    | Test        | Test_last_name | mari.test@yahoo.com | Test_email@test.com | 1111122222   | 12345678910  |
 
 
+
+Scenario: (Check mandatory fields are validated (10.2 - negative scenario)
+  When I click My Account menu in form of table on the right of screen
+  And I click "Edit your account information" on the left of screen under My Account title
+  Then I am

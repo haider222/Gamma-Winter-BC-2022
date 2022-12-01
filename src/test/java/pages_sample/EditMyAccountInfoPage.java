@@ -71,6 +71,22 @@ public class EditMyAccountInfoPage {
     }
 
 
+    public WebElement getDangerTextFirstName() {
+        return dangerTextFirstName;
+    }
+
+    public WebElement getDangerTextLastName() {
+        return dangerTextLastName;
+    }
+
+    public WebElement getDangerTextEmail() {
+        return dangerTextEmail;
+    }
+
+    public WebElement getDangerTextTelephone() {
+        return dangerTextTelephone;
+    }
+
     public void changeFirstName(String firstName){
         inputFirstName.clear();
         inputFirstName.sendKeys(firstName);
