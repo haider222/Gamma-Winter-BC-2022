@@ -9,13 +9,13 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages_sample.*;
 
-import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -417,8 +417,8 @@ public class MyAccountSteps {
         addressListPage.clickNewAddressButton();
     }
 
-    @And("I see the mandatory input field are availiable")
-    public void iSeeTheMandatoryInputFieldAreAvailiable() {
+    @And("I see the mandatory input field are available")
+    public void iSeeTheMandatoryInputFieldAreAvailable() {
         addEditAddressPage.fieldsAreAvailiable();
     }
 
@@ -453,9 +453,15 @@ public class MyAccountSteps {
         addEditAddressPage.chooseRegionOption(region);
     }
 
-    @Then("I click Yes to use address as defoult")
-    public void iClickYesToUseAddressAsDefoult() {
+    @Then("I click Yes to use address as default")
+    public void iClickYesToUseAddressAsDefault() throws Exception{
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,600)", "");
+
+        Thread.sleep(500);
         addEditAddressPage.clickYesRadioButton();
+        Thread.sleep(2000);
     }
 
     @And("I press Continue button")
@@ -561,8 +567,19 @@ public class MyAccountSteps {
     }
 
     @And("I see the same data in Edit Address page")
-    public void iSeeTheSameDataInEditAddressPage(Map<String, String> addressData) {
-        addEditAddressPage.getActualAddressData();
+    public void iSeeTheSameDataInEditAddressPage(Map<String, String> addressData) throws  Exception{
+
+        List<String> expectedValues = new ArrayList<>(addressData.values());
+
+        List<String> actualValues = new ArrayList<>(addEditAddressPage.getActualAddressData());
+
+        assertTrue(actualValues.containsAll(expectedValues));
+
+//        System.out.println("expectedValues: " + expectedValues);
+//        System.out.println("actualValues: " + actualValues);
+
+        Thread.sleep(2000);
+
     }
 
 
@@ -636,6 +653,50 @@ public class MyAccountSteps {
     @And("I see Lastname warning message")
     public void iSeeLastnameWarningMessage() {
         registrationPage.errorLastnameText();
+    }
+
+    @And("I set this address as default")
+    public void iSetThisAddressAsDefault() throws  Exception{
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,600)", "");
+        Thread.sleep(500);
+
+        addEditAddressPage.clickYesRadioButton();
+
+        Thread.sleep(2000);
+    }
+
+    @And("I see this is the default address")
+    public void iSeeThisIsTheDefaultAddress() throws Exception {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,600)", "");
+
+        Thread.sleep(500);
+        assertFalse(addEditAddressPage.getNoRadioButton().isSelected());
+
+        Thread.sleep(2000);
+    }
+
+    @And("I am on Address Book Entries page")
+    public void iAmOnAddressBookEntriesPage() {
+        assertTrue(addressListPage.getAddressBookEntriesHeading().isDisplayed());
+    }
+
+    @And("I see this address is not default")
+    public void iSeeThisAddressIsNotDefault() throws Exception{
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,600)", "");
+
+        Thread.sleep(500);
+        assertTrue(addEditAddressPage.getNoRadioButton().isSelected());
+
+        Thread.sleep(2000);
+    }
+
+    @Then("I am on Edit Address page")
+    public void iAmOnEditAddressPage() {
+        assertTrue(addEditAddressPage.getEditPageHeading().isDisplayed());
     }
 }
 

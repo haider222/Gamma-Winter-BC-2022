@@ -70,7 +70,7 @@ public class AddAddressPage {
     private WebElement noRadioButton;
 
     @FindBy (how = How.CSS, using = "#content>h2")
-    private WebElement editPageTitle;
+    private WebElement editPageHeading;
 
 
 
@@ -80,7 +80,7 @@ public class AddAddressPage {
 
     public WebElement getNoRadioButton(){ return noRadioButton; }
 
-    public WebElement getEditPageTitle() { return editPageTitle; }
+    public WebElement getEditPageHeading() { return editPageHeading; }
 
     public void fieldsAreAvailiable() {
         firstName.isDisplayed();
@@ -194,11 +194,13 @@ public class AddAddressPage {
     }
 
     public String getCountryValue() {
-        return country.getAttribute("value");
+        Select select = new Select(country);
+        return select.getFirstSelectedOption().getText();
     }
 
     public String getRegionValue() {
-        return region.getAttribute("value");
+        Select select = new Select(region);
+        return select.getFirstSelectedOption().getText();
     }
 
     public List<String> getActualAddressData() {
@@ -209,17 +211,12 @@ public class AddAddressPage {
         String address = getAddress1Value();
         String city = getCityValue();
         String postCode = getPostCodeValue();
-        Select dropDown = new Select(this.country);
         String country = getCountryValue();
-        dropDown.selectByValue(country);
-        Select dropDown2 = new Select(this.region);
         String region = getRegionValue();
-        dropDown2.selectByValue(region);
-
 
         actualInfoList = Arrays.asList(firstName, lastName, address, city, postCode, country, region);
 
-        System.out.println("actualInfoList:" + actualInfoList);
+//        System.out.println("actualInfoList:" + actualInfoList);
         return actualInfoList;
     }
 
