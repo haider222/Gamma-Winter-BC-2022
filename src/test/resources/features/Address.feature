@@ -17,7 +17,20 @@ Feature: User is able to manipulate with address book
     Then I click Yes to use address as defoult
     And I press Continue button
     Examples:
-      | firstname | lastname | address       | city   | mycountry | region |postcode|
-      | Sarah     | Tomson   | Test street 1 | Qwerty | Turkey  | Ankara |ZXC123  |
+      | firstname | lastname | address       | city   | mycountry | region | postcode |
+      | Sarah     | Tomson   | Test street 1 | Qwerty | Turkey    | Ankara | ZXC123   |
 
+
+  Scenario Outline: Edit address
+    When I select address as by data below and click corresponding Edit button
+      | firstName | <firstName> |
+      | lastName  | <lastName>  |
+      | address   | <address>   |
+      | city      | <city>      |
+      | postCode  | <postCode>  |
+      | country   | <country>   |
+      | region    | <region>    |
+    Examples:
+      | firstName | lastName   | address   | city   | postCode   | country | region |
+      | MyName    | MyLastName | MyAddress | MyCity | myPostCode | China   | Gansu  |
 

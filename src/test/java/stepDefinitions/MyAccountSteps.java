@@ -502,4 +502,11 @@ public class MyAccountSteps {
     public void iPressContinueButton() {
         addEditAddressPage.clickContinueButton();
     }
+
+    @When("I select address as by data below and click corresponding Edit button")
+    public void iSelectAddressAsByDataBelowAndClickCorrespondingEditButton(Map<String, String> address) throws Exception  {
+        addressListPage.clickAddressEditButton(address);
+
+
+    }
 }
