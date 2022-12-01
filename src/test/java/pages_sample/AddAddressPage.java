@@ -6,7 +6,7 @@ import org.openqa.selenium.support.How;
 
 import java.util.List;
 
-public class AddEditAddressPage {
+public class AddAddressPage {
     @FindBy (how = How.CSS, using = "#input-firstname")
     private WebElement firstName;
 
