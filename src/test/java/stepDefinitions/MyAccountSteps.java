@@ -8,10 +8,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages_sample.*;
@@ -37,9 +34,11 @@ public class MyAccountSteps {
 
     static AddAddressPage addEditAddressPage;
 
-    static  AddressListPage addressListPage;
+    static AddressListPage addressListPage;
 
     static List<String> updatedAccountInfo;
+
+    static String emailForAlert;
 
 
     public MyAccountSteps() {
@@ -61,8 +60,6 @@ public class MyAccountSteps {
         driver.get(registrationPage.getPageUrl());
 
     }
-
-
 
 
     @Given("I am logged in to the shop")
@@ -140,7 +137,7 @@ public class MyAccountSteps {
 
 
     @And("I click continue button")
-    public void iClickContinueButton() throws  Exception{
+    public void iClickContinueButton() throws Exception {
         registrationPage.clicContinuekButton();
         Thread.sleep(3000);
     }
@@ -154,7 +151,7 @@ public class MyAccountSteps {
     }
 
     @And("I click \"Edit your account information\" on the left of screen under My Account heading")
-    public void iClickEditYourAccountInformationOnTheLeftOfScreenUnderMyAccountHeading() throws  Exception{
+    public void iClickEditYourAccountInformationOnTheLeftOfScreenUnderMyAccountHeading() throws Exception {
         myAccountPage.clickEditYourAccountInfoTextLink();
         Thread.sleep(1000);
     }
@@ -238,6 +235,7 @@ public class MyAccountSteps {
     public void iClickLoginButton() {
         loginPage.clickLoginButton();
     }
+
     @When("I am logged in with {string} and {string}")
     public void iAmLoggedInp(String email, String password) throws Exception {
 
@@ -284,7 +282,7 @@ public class MyAccountSteps {
     public void iSeeMessageIsInFilledLightGreenBoxWithDarkGreenFont(String expectedBoxColor, String expectedFontColor) {
         String actualBoxColor = myAccountPage.getAccountUpdateSuccessMessage().getCssValue("background-color");
         String actualFontColor = myAccountPage.getAccountUpdateSuccessMessage().getCssValue("color");
-        assertEquals(expectedBoxColor,actualBoxColor);
+        assertEquals(expectedBoxColor, actualBoxColor);
         assertEquals(expectedFontColor, actualFontColor);
 
 //        System.out.println("expectedBoxColor:" + expectedBoxColor);
@@ -307,6 +305,7 @@ public class MyAccountSteps {
 
         Thread.sleep(2000);
     }
+
     @Then("I see registration data in fields:")
     public void iSeeRegistrationDataInFields(Map<String, String> accountData) throws Exception {
 
@@ -323,14 +322,14 @@ public class MyAccountSteps {
     }
 
     @When("I click Edit Account menu, in form of table on the right of the screen")
-    public void iClickEditAccountMenuInFormOfTableOnTheRightOfTheScreen() throws Exception{
+    public void iClickEditAccountMenuInFormOfTableOnTheRightOfTheScreen() throws Exception {
         myAccountPage.clickEditAccountTableLink();
         Thread.sleep(1000);
 
     }
 
     @And("Click Back button to avoid changes")
-    public void clickBackButtonToAvoidChanges() throws Exception{
+    public void clickBackButtonToAvoidChanges() throws Exception {
         editMyAccountInfoPage.clickBackButton();
         Thread.sleep(2000);
     }
@@ -454,7 +453,7 @@ public class MyAccountSteps {
     }
 
     @Then("I click Yes to use address as default")
-    public void iClickYesToUseAddressAsDefault() throws Exception{
+    public void iClickYesToUseAddressAsDefault() throws Exception {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,600)", "");
@@ -470,7 +469,7 @@ public class MyAccountSteps {
     }
 
     @When("I select address as by data below and click corresponding Edit button")
-    public void iSelectAddressAsByDataBelowAndClickCorrespondingEditButton(Map<String, String> address) throws Exception  {
+    public void iSelectAddressAsByDataBelowAndClickCorrespondingEditButton(Map<String, String> address) throws Exception {
         String xPath = addressListPage.getAddressEditButtonXPath(address);
         Thread.sleep(500);
 
@@ -495,7 +494,7 @@ public class MyAccountSteps {
 
     @And("I check that I am on address page")
     public void iCheckThatIAmOnAddressPage() {
-        assertEquals(addEditAddressPage.getPageUrl(), driver.getCurrentUrl() );
+        assertEquals(addEditAddressPage.getPageUrl(), driver.getCurrentUrl());
 
     }
 
@@ -503,7 +502,6 @@ public class MyAccountSteps {
     public void iFillInAllFieldsExceptFirstname() {
         addEditAddressPage.inputDataExceptName();
     }
-
 
 
     @Then("I fill Firstname field and delete Lastname")
@@ -567,7 +565,7 @@ public class MyAccountSteps {
     }
 
     @And("I see the same data in Edit Address page")
-    public void iSeeTheSameDataInEditAddressPage(Map<String, String> addressData) throws  Exception{
+    public void iSeeTheSameDataInEditAddressPage(Map<String, String> addressData) throws Exception {
 
         List<String> expectedValues = new ArrayList<>(addressData.values());
 
@@ -581,7 +579,6 @@ public class MyAccountSteps {
         Thread.sleep(2000);
 
     }
-
 
 
     @Then("I input all fields and do not mark Privacy Policy")
@@ -656,7 +653,7 @@ public class MyAccountSteps {
     }
 
     @And("I set this address as default")
-    public void iSetThisAddressAsDefault() throws  Exception{
+    public void iSetThisAddressAsDefault() throws Exception {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,600)", "");
         Thread.sleep(500);
@@ -683,7 +680,7 @@ public class MyAccountSteps {
     }
 
     @And("I see this address is not default")
-    public void iSeeThisAddressIsNotDefault() throws Exception{
+    public void iSeeThisAddressIsNotDefault() throws Exception {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,600)", "");
@@ -720,33 +717,126 @@ public class MyAccountSteps {
 
     @And("I see warning message under the {string} field: {string}")
     public void iSeeWarningMessageUnderTheField(String fieldName, String message) {
-        if (fieldName.contains("First")) { assertEquals(message, editMyAccountInfoPage.getDangerTextFirstName().getText());}
-        else if (fieldName.contains("Last")){assertEquals(message, editMyAccountInfoPage.getDangerTextLastName().getText());}
-        else if (fieldName.contains("E-mail")){assertEquals(message, editMyAccountInfoPage.getDangerTextEmail().getText());}
-        else {assertEquals(message, editMyAccountInfoPage.getDangerTextTelephone().getText());}
+        if (fieldName.contains("First")) {
+            assertEquals(message, editMyAccountInfoPage.getDangerTextFirstName().getText());
+        } else if (fieldName.contains("Last")) {
+//            String xPath = myAccountPage.getWebElementXPath(editMyAccountInfoPage.getDangerTextLastName());
+//            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xPath)));
+            assertEquals(message, editMyAccountInfoPage.getDangerTextLastName().getText());
+        } else if (fieldName.contains("E-mail")) {
+            assertEquals(message, editMyAccountInfoPage.getDangerTextEmail().getText());
+        } else {
+            assertEquals(message, editMyAccountInfoPage.getDangerTextTelephone().getText());
+        }
 
     }
 
-    @Then("I delete {string}, other fields left correctly filled and click Continue")
-    public void iDeleteOtherFieldsLeftCorrectlyFilledAndClickContinue(String fieldName) {
+    @Then("I delete {string} and click Continue")
+    public void iDeleteAndClickContinue(String fieldName) throws Exception {
         if (fieldName.contains("First")) {
             editMyAccountInfoPage.changeFirstName("");
             editMyAccountInfoPage.clickContinueButton();
+            Thread.sleep(1000);
         } else if (fieldName.contains("Last")) {
             editMyAccountInfoPage.changeLastName("");
             editMyAccountInfoPage.clickContinueButton();
+            Thread.sleep(1000);
         } else if (fieldName.contains("E-mail")) {
             editMyAccountInfoPage.changeEmail("");
             editMyAccountInfoPage.clickContinueButton();
+            Thread.sleep(1000);
         } else {
             editMyAccountInfoPage.changeTelephone("");
             editMyAccountInfoPage.clickContinueButton();
+            Thread.sleep(1000);
         }
     }
 
     @And("I see My Account Information heading in large font below navigation menu")
     public void iSeeMyAccountInformationHeadingInLargeFontBelowNavigationMenu() {
         assertTrue(editMyAccountInfoPage.getMyAccountInformationHeading().isDisplayed());
+    }
+
+
+//    @Then("I input {string} {string} of more than 32 letters and click Continue")
+//    public void iInputOfMoreThan32LettersAndClickContinue(String value, String fieldName) {
+//        if (fieldName.contains("First")) {
+//            editMyAccountInfoPage.changeFirstName(value);
+//        } else {
+//            editMyAccountInfoPage.changeLastName(value);
+//
+//        }
+//    }
+
+
+    @When("I input First Name of more than 32 letters, Last Name leave of correct length")
+    public void iInputFirstNameOfMoreThan32LettersLastNameLeaveOfCorrectLength(Map<String, String> values) {
+        editMyAccountInfoPage.changeFirstName(values.get("firstName"));
+        editMyAccountInfoPage.changeLastName(values.get("lastName"));
+    }
+
+    @When("I input Last Name of more than 32 letters, First Name leave of correct length")
+    public void iInputLastNameOfMoreThan32LettersFirstNameLeaveOfCorrectLength(Map<String, String> values) {
+        editMyAccountInfoPage.changeFirstName(values.get("firstName"));
+        editMyAccountInfoPage.changeLastName(values.get("lastName"));
+    }
+
+    @Then("I input Telephone of more than 32 numbers")
+    public void iInputTelephoneOfMoreThanNumbers(Map<String, String> values) {
+        editMyAccountInfoPage.changeTelephone(values.get("telephone"));
+    }
+
+    @When("I input Telephone of less than 3 numbers")
+    public void iInputTelephoneOfLessThan3Numbers(Map<String, String> values) {
+        editMyAccountInfoPage.changeTelephone(values.get("telephone"));
+    }
+
+    @When("I input E-mail without dot in domain name, other fields left correctly filled")
+    public void iInputEMailWithoutDotInDomainNameOtherFieldsLeftCorrectlyFilled(Map<String, String> values) {
+        editMyAccountInfoPage.changeEmail(values.get("email"));
+    }
+
+//    @When("I input {string} without @, other fields left correctly filled")
+//    public void iInputWithoutOtherFieldsLeftCorrectlyFilled(String email) {
+//        editMyAccountInfoPage.changeEmail(email);
+//        emailForAlert = email;
+//    }
+
+
+//    @When("I input {string} with unsupported symbol before @, other fields left correctly filled")
+//    public void iInputWithUnsupportedSymbolBeforeOtherFieldsLeftCorrectlyFilled(String email) {
+//        editMyAccountInfoPage.changeEmail(email);
+//        emailForAlert = email;
+//    }
+
+//    @When("I input {string} with unsupported symbol after @, other fields left correctly filled")
+//    public void iInputWithUnsupportedSymbolAfterOtherFieldsLeftCorrectlyFilled(String email) {
+//        editMyAccountInfoPage.changeEmail(email);
+//        emailForAlert = email;
+//    }
+
+    @When("I input incorrect {string}, other fields left correctly filled")
+    public void iInputIncorrectOtherFieldsLeftCorrectlyFilled(String email) {
+        editMyAccountInfoPage.changeEmail(email);
+        emailForAlert = email;
+    }
+
+    @Then("I see disappearing {string} prompt that matches errors in {string}")
+    public void iSeeDisappearingPromptThatMatchesErrorsIn(String message, String email) {
+        assertFalse(editMyAccountInfoPage.validateEmail(email));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        //this will print the entire validity object shows which validity failed
+//        System.out.println(js.executeScript("return arguments[0].validity", editMyAccountInfoPage.getInputEmail()));
+
+        //shows true if no validity failed else false if any failed
+//        System.out.println(js.executeScript("return arguments[0].validity.valid", editMyAccountInfoPage.getInputEmail()));
+
+
+        //shows the validityErorMessage that would be shown
+//        System.out.println(js.executeScript("return arguments[0].validationMessage", editMyAccountInfoPage.getInputEmail()));
+
+        assertEquals(message, js.executeScript("return arguments[0].validationMessage", editMyAccountInfoPage.getInputEmail()));
     }
 }
 

@@ -86,18 +86,57 @@ Feature: User is able to access and manipulate with account
 
 
 
-Scenario: Mandatory fields are validated (10.2 - negative scenario)
-  When I click navigation menu item My Account
-  And I click sub menu item My Account
-  And I see My Account heading in large font on the left side of the screen
-  And I click "Edit your account information" on the left of screen under My Account heading
-  And I see My Account Information heading in large font below navigation menu
-  Then I delete "First Name", other fields left correctly filled and click Continue
-  And I see warning message under the "First Name" field: "First Name must be between 1 and 32 characters!"
-  Then I delete "Last Name", other fields left correctly filled and click Continue
-  And I see warning message under the "Last Name" field: "Last Name must be between 1 and 32 characters!"
-  Then I delete "E-mail", other fields left correctly filled and click Continue
-  And I see warning message under the "E-mail" field: "E-Mail Address does not appear to be valid!"
-  Then I delete "Telephone", other fields left correctly filled and click Continue
-  And I see warning message under the "Telephone" field: "Telephone must be between 3 and 32 characters!"
+  Scenario: Mandatory fields are validated (10.2 - negative scenario)
+    When I click navigation menu item My Account
+    And I click sub menu item My Account
+    And I see My Account heading in large font on the left side of the screen
+    And I click "Edit your account information" on the left of screen under My Account heading
+    And I see My Account Information heading in large font below navigation menu
+    Then I delete "First Name" and click Continue
+    And I see warning message under the "First Name" field: "First Name must be between 1 and 32 characters!"
+    Then I delete "Last Name" and click Continue
+    And I see warning message under the "Last Name" field: "Last Name must be between 1 and 32 characters!"
+    Then I delete "E-mail" and click Continue
+    And I see warning message under the "E-mail" field: "E-Mail Address does not appear to be valid!"
+    Then I delete "Telephone" and click Continue
+    And I see warning message under the "Telephone" field: "Telephone must be between 3 and 32 characters!"
+    When I input First Name of more than 32 letters, Last Name leave of correct length
+      | firstName | asdfghjklqwertyghjkuiopasdfghjklzxcvb |
+      | lastName  | last name                             |
+    And I click Continue button to save data
+    Then I see warning message under the "First Name" field: "First Name must be between 1 and 32 characters!"
+    When I input Last Name of more than 32 letters, First Name leave of correct length
+      | firstName | first name                           |
+      | lastName  | sdfghjklqwertyghjkuiopasdfghjklzxcvb |
+    And I click Continue button to save data
+    Then I see warning message under the "Last Name" field: "Last Name must be between 1 and 32 characters!"
+    When I input Telephone of more than 32 numbers
+      | telephone | 123456789012345678901234567890123 |
+    And I click Continue button to save data
+    Then I see warning message under the "Telephone" field: "Telephone must be between 3 and 32 characters!"
+    When I input Telephone of less than 3 numbers
+      | telephone | 12 |
+    And I click Continue button to save data
+    Then I see warning message under the "Telephone" field: "Telephone must be between 3 and 32 characters!"
+    When I input E-mail without dot in domain name, other fields left correctly filled
+      | email | Test_email@testcom |
+    And I click Continue button to save data
+    And I see warning message under the "E-mail" field: "E-Mail Address does not appear to be valid!"
+
+
+
+  Scenario Outline: Email regex validation with disappearing prompt messages  (10.2 - negative scenario)
+    When I click navigation menu item My Account
+    And I click sub menu item My Account
+    And I see My Account heading in large font on the left side of the screen
+    And I click "Edit your account information" on the left of screen under My Account heading
+    And I see My Account Information heading in large font below navigation menu
+    When I input incorrect "<eMail>", other fields left correctly filled
+    And I click Continue button to save data
+    Then I see disappearing "<warning>" prompt that matches errors in "<eMail>"
+    Examples:
+      | eMail              | warning                                                                             |
+      | Test_emailtest.com | Please include an '@' in the email address. 'Test_emailtest.com' is missing an '@'. |
+      | as(as@.yahoo.com   | A part followed by '@' should not contain the symbol '('.                           |
+      | asas@.yahoo(.com   | A part following '@' should not contain the symbol '('.                             |
 
