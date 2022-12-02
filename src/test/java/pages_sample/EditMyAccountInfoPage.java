@@ -26,7 +26,6 @@ public class EditMyAccountInfoPage {
     @FindBy(how = How.CSS, using = "input[name=\"lastname\"]")
     private WebElement inputLastName;
 
-
     @FindBy(how = How.CSS, using = "input[name=\"email\"]")
     private WebElement inputEmail;
 
@@ -144,10 +143,6 @@ public class EditMyAccountInfoPage {
 //        System.out.println("updatedInfoList:" + updatedInfoList);
         return updatedInfoList;
     }
-
-
-//    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-//            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public boolean validateEmail(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);

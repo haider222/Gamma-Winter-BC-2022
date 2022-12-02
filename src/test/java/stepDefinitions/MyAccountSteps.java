@@ -51,8 +51,6 @@ public class MyAccountSteps {
         loginPage = PageFactory.initElements(stepDefinitions.Hooks.driver, LoginPage.class);
         addEditAddressPage = PageFactory.initElements(stepDefinitions.Hooks.driver, AddAddressPage.class);
         addressListPage = PageFactory.initElements(stepDefinitions.Hooks.driver, AddressListPage.class);
-
-
     }
 
     @Given("I am on register page")
@@ -79,7 +77,6 @@ public class MyAccountSteps {
 //        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(path)));
         loginPage.clickLoginButton();
         Thread.sleep(1000);
-
 
     }
 
@@ -138,7 +135,7 @@ public class MyAccountSteps {
 
     @And("I click continue button")
     public void iClickContinueButton() throws Exception {
-        registrationPage.clicContinuekButton();
+        registrationPage.clickContinueButton();
         Thread.sleep(3000);
     }
 
@@ -209,32 +206,32 @@ public class MyAccountSteps {
         registrationPage.enterConfirmPassword(confpassword);
     }
 
-
-    @And("I click on Register")
-    public void iClickOnRegister() {
-        myAccountPage.clickOnRegister();
-    }
+//
+//    @And("I click on Register")
+//    public void iClickOnRegister() {
+//        myAccountPage.clickOnRegister();
+//    }
 
     @When("I am on Login page")
     public void iAmOnLoginPage() {
         loginPage.getUrl();
     }
 
-    @Then("I enter registered Email {string}")
-    public void iEnterRegisteredEmail(String email) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(loginPage.getLoginEmail().getAttribute("id"))));
-        loginPage.inputLoginEmail(email);
-    }
+//    @Then("I enter registered Email {string}")
+//    public void iEnterRegisteredEmail(String email) {
+//        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(loginPage.getLoginEmail().getAttribute("id"))));
+//        loginPage.inputLoginEmail(email);
+//    }
 
-    @And("I enter registered password {string}")
-    public void iEnterRegisteredPassword(String password) {
-        loginPage.inputLoginPassword(password);
-    }
+//    @And("I enter registered password {string}")
+//    public void iEnterRegisteredPassword(String password) {
+//        loginPage.inputLoginPassword(password);
+//    }
 
-    @Then("I click login button")
-    public void iClickLoginButton() {
-        loginPage.clickLoginButton();
-    }
+//    @Then("I click login button")
+//    public void iClickLoginButton() {
+//        loginPage.clickLoginButton();
+//    }
 
     @When("I am logged in with {string} and {string}")
     public void iAmLoggedInp(String email, String password) throws Exception {
@@ -347,15 +344,6 @@ public class MyAccountSteps {
         editMyAccountInfoPage.changeLastName(accountData.get("lastName"));
         editMyAccountInfoPage.changeEmail(accountData.get("eMail"));
         editMyAccountInfoPage.changeTelephone(accountData.get("telephone"));
-
-//        List<String> inputValues = new ArrayList<>(accountData.values());
-//        System.out.println("inputValues: " + inputValues);
-
-//        temporaryUpdatedAccountInfo = editMyAccountInfoPage.updatedAccountInfo();
-//
-//        System.out.println("temporaryUpdatedAccountInfo: " + temporaryUpdatedAccountInfo);
-
-//        assertTrue(temporaryUpdatedAccountInfo.containsAll(inputValues));
 
         Thread.sleep(1000);
     }
@@ -482,10 +470,6 @@ public class MyAccountSteps {
 
     }
 
-    @When("I am on Address page")
-    public void iAmOnAddressPage() {
-        driver.get(addEditAddressPage.getPageUrl());
-    }
 
     @Then("I click on Back button")
     public void iClickOnBackButton() {
@@ -652,17 +636,6 @@ public class MyAccountSteps {
         registrationPage.errorLastnameText();
     }
 
-    @And("I set this address as default")
-    public void iSetThisAddressAsDefault() throws Exception {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,600)", "");
-        Thread.sleep(500);
-
-        addEditAddressPage.clickYesRadioButton();
-
-        Thread.sleep(2000);
-    }
-
     @And("I see this is the default address")
     public void iSeeThisIsTheDefaultAddress() throws Exception {
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -695,25 +668,6 @@ public class MyAccountSteps {
     public void iAmOnEditAddressPage() {
         assertTrue(addEditAddressPage.getEditPageHeading().isDisplayed());
     }
-
-    @Then("I delete First Name, other fields left correctly filled and click Continue")
-    public void iDeleteFirstNameOtherFieldsLeftCorrectlyFilledAndClickContinue() {
-        editMyAccountInfoPage.changeFirstName("");
-        editMyAccountInfoPage.clickContinueButton();
-    }
-
-    @And("I see warning message {string} under the field: {string}")
-    public void iSeeWarningMessageUnderTheField(String message) {
-        assertEquals(message, editMyAccountInfoPage.getDangerTextFirstName().getText());
-    }
-
-
-    @And("I delete Last Name, other fields left correctly filled and click Continue")
-    public void iDeleteLastNameOtherFieldsLeftCorrectlyFilledAndClickContinue() {
-        editMyAccountInfoPage.changeLastName("");
-        editMyAccountInfoPage.clickContinueButton();
-    }
-
 
     @And("I see warning message under the {string} field: {string}")
     public void iSeeWarningMessageUnderTheField(String fieldName, String message) {
@@ -757,18 +711,6 @@ public class MyAccountSteps {
         assertTrue(editMyAccountInfoPage.getMyAccountInformationHeading().isDisplayed());
     }
 
-
-//    @Then("I input {string} {string} of more than 32 letters and click Continue")
-//    public void iInputOfMoreThan32LettersAndClickContinue(String value, String fieldName) {
-//        if (fieldName.contains("First")) {
-//            editMyAccountInfoPage.changeFirstName(value);
-//        } else {
-//            editMyAccountInfoPage.changeLastName(value);
-//
-//        }
-//    }
-
-
     @When("I input First Name of more than 32 letters, Last Name leave of correct length")
     public void iInputFirstNameOfMoreThan32LettersLastNameLeaveOfCorrectLength(Map<String, String> values) {
         editMyAccountInfoPage.changeFirstName(values.get("firstName"));
@@ -795,25 +737,6 @@ public class MyAccountSteps {
     public void iInputEMailWithoutDotInDomainNameOtherFieldsLeftCorrectlyFilled(Map<String, String> values) {
         editMyAccountInfoPage.changeEmail(values.get("email"));
     }
-
-//    @When("I input {string} without @, other fields left correctly filled")
-//    public void iInputWithoutOtherFieldsLeftCorrectlyFilled(String email) {
-//        editMyAccountInfoPage.changeEmail(email);
-//        emailForAlert = email;
-//    }
-
-
-//    @When("I input {string} with unsupported symbol before @, other fields left correctly filled")
-//    public void iInputWithUnsupportedSymbolBeforeOtherFieldsLeftCorrectlyFilled(String email) {
-//        editMyAccountInfoPage.changeEmail(email);
-//        emailForAlert = email;
-//    }
-
-//    @When("I input {string} with unsupported symbol after @, other fields left correctly filled")
-//    public void iInputWithUnsupportedSymbolAfterOtherFieldsLeftCorrectlyFilled(String email) {
-//        editMyAccountInfoPage.changeEmail(email);
-//        emailForAlert = email;
-//    }
 
     @When("I input incorrect {string}, other fields left correctly filled")
     public void iInputIncorrectOtherFieldsLeftCorrectlyFilled(String email) {

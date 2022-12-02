@@ -1,8 +1,6 @@
 package pages_sample;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -10,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 public class AddressListPage {
-    @FindBy(how= How.CSS, using = ".table.table-bordered.table-hover>tbody")
-    private List<WebElement> addressList;
+//    @FindBy(how= How.CSS, using = ".table.table-bordered.table-hover>tbody")
+//    private List<WebElement> addressList;
 
     @FindBy (how = How.CSS, using = "a.btn.btn-primary")
     private WebElement newAddressButton;
@@ -22,7 +20,7 @@ public class AddressListPage {
     @FindBy (how = How.CSS, using ="#content>h2")
     private WebElement addressBookEntriesHeading;
 
-// To be used for Edit button  a.btn.btn-info    or   //a[@class="btn btn-info"]    //td[text()='Adresas1' and text()='Imone']
+// To be used for Edit button  a.btn.btn-info
 // To be used for Delete button  a.btn.btn-danger
 
     public WebElement getAddressBookEntriesHeading() {
@@ -55,11 +53,5 @@ public class AddressListPage {
         return xPath;
 
     }
-
-
-
-
-
-
 
 }
