@@ -14,16 +14,6 @@ public class MyAccountPage {
     @FindBy(how = How.CSS, using = "#top-links > ul > li.dropdown > a")
     private WebElement navMenuItemMyAccount;
 
-//    @FindBy(how = How.CSS, using = "#top-links > ul > li.dropdown > a > span.hidden-xs.hidden-sm.hidden-md")
-//    private WebElement navMenuItemMyAccount;
-
-//    //*[@id="top-links"]/ul/li[@class="dropdown open"]/a/span[text()="My Account"]
-
-//    @FindBy(how = How.XPATH, using = "//ul[@class=\"list-inline\"]/li[@class=\"dropdown open\"]/" +
-//            "ul[@class=\"dropdown-menu dropdown-menu-right\"]/li/a[contains(text(), \"My Account\")]")
-//    private WebElement subMenuItemMyAccount;
-
-
     @FindBy(how = How.XPATH, using = "//ul[@class=\"list-inline\"]/li/ul/li/a[contains(text(), \"My Account\")]")
     private WebElement subMenuItemMyAccount;
     @FindBy(how = How.CSS, using = "div.list-group>a")
@@ -80,11 +70,6 @@ public class MyAccountPage {
 //    @FindBy(how = How.XPATH, using = "//*[@id=\"account-account\"]/div[@class=\"alert alert-success alert-dismissible\"]")
 //    private WebElement accountUpdateSuccessMessage;
 
-    //    Success: Your account has been successfully updated.
-//    rgba(223, 240, 216, 1)   font rgba(60, 118, 61, 1)
-//            ".alert-success.alert-dismissible")
-
-
 
     public WebElement getMyAccountHeading(){ return myAccountHeading; }
 
@@ -132,11 +117,11 @@ public class MyAccountPage {
         return accountUpdateSuccessMessage;
     }
 
-    public String getWebElementSelector(WebElement webElement){
-        String text = webElement.toString();
-        return text.substring(text.indexOf("selector:") + 10, text.length()-1);
-
-    }
+//    public String getWebElementSelector(WebElement webElement){
+//        String text = webElement.toString();
+//        return text.substring(text.indexOf("selector:") + 10, text.length()-1);
+//
+//    }
 
     public String getWebElementXPath(WebElement webElement){
         String text = webElement.toString();
@@ -148,7 +133,7 @@ public class MyAccountPage {
     }
 
     public boolean checkAccountUpdateSuccessMessageIsPresent() {
-//        List<WebElement> noElementFound = driver.findElements(By.cssSelector(getWebElementSelector(accountUpdateSuccessMessage)));
+
         List<WebElement> noElementFound = driver.findElements(By.cssSelector("#account-account>.alert-success"));
         if (noElementFound.isEmpty()) {
             return false;

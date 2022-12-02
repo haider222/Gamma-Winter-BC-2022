@@ -3,7 +3,6 @@ package pages_sample;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.ui.Select;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -142,10 +141,6 @@ public class RegistrationPage {
     }
 
 
-
-
-//    Your Account Has Been Created!
-
     public WebElement getAccountHasBeenCreatedMessageHeading(){
         return accountHasBeenCreatedMessageHeading;
     }
@@ -196,10 +191,9 @@ public class RegistrationPage {
         privacyPlolicyRadioButton.click();
     }
 
-    public void clicContinuekButton() {
+    public void clickContinueButton() {
         continueButton.click();
     }
-
 
 
 }
