@@ -23,7 +23,7 @@ Feature: New account registration and login
     Then I am logged in with "<email>" and "<password>"
     Examples:
       | email             | password |
-      | t.doe56@gmail.com | qwerty   |
+      | t.doe60@gmail.com | qwerty   |
 
   Scenario Outline: Registration info is the same as in account page (8,6)
     When I am logged in with "<email>" and "<password>"
@@ -35,7 +35,7 @@ Feature: New account registration and login
       | number    | <number>    |
     Examples:
       | firstname | lastname | email             | number  | password |
-      | Tom       | Doe      | t.doe56@gmail.com | 1234567 | qwerty   |
+      | Tom       | Doe      | t.doe60@gmail.com | 1234567 | qwerty   |
 
   Scenario: Registration - input fields are mandatory (8,4)
     When I am on register page
