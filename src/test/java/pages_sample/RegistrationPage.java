@@ -46,6 +46,46 @@ public class RegistrationPage {
     private WebElement dangerTextFirstname;
     @FindBy(how = How.XPATH, using = "//*[text()=' Warning: You must agree to the Privacy Policy!']")
     private WebElement dangerTextPrivacyPolicy;
+    public void errorTelephone() {
+        assertEquals("Telephone must be between 3 and 32 characters!", dangerTextTelephone.getText());
+    }
+    public void errorPassword() {
+        assertEquals("Password must be between 4 and 20 characters!", dangerTextPassword.getText());
+    }
+    public void errorConfPassword() {
+        assertEquals("Password confirmation does not match password!", dangerTextConfPassword.getText());
+    }
+    public void validDataWrongEmail(String email) {
+        firstNameInput.sendKeys("John");
+        lastNameInput.sendKeys("Travolta");
+        emailInput.sendKeys(email);
+        telephoneInput.sendKeys("1234567");
+        passwordInput.sendKeys("qwerty");
+        passwordConfirmInput.sendKeys("qwerty");
+        privatePolicyClick();
+    }
+    public void validDataWrongTelephone(String number) {
+        emailInput.clear();
+        emailInput.sendKeys("john.travolta@gmail.com");
+        telephoneInput.clear();
+        telephoneInput.sendKeys(number);
+    }
+    public void validDataWrongTelephoneTwo(String number) {
+        telephoneInput.clear();
+        telephoneInput.sendKeys(number);
+    }
+    public void validDataWrongPassword(String pass) {
+        telephoneInput.clear();
+        telephoneInput.sendKeys("1234567");
+        passwordInput.clear();
+        passwordInput.sendKeys(pass);
+    }
+    public void validDataWrongConfPassword(String pass) {
+        passwordInput.clear();
+        passwordInput.sendKeys("qwerty");
+        passwordConfirmInput.clear();
+        passwordConfirmInput.sendKeys(pass);
+    }
 
     public void errorLastnameText() {
         assertEquals("Last Name must be between 1 and 32 characters!", dangerTextLastname.getText());

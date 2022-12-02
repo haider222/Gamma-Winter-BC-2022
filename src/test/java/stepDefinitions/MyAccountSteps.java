@@ -838,6 +838,47 @@ public class MyAccountSteps {
 
         assertEquals(message, js.executeScript("return arguments[0].validationMessage", editMyAccountInfoPage.getInputEmail()));
     }
+
+    @Then("I input valid data and invalid Email without @ symbol {string}")
+    public void iInputValidDataAndInvalidEmailWithoutSymbol(String mail) {
+        registrationPage.validDataWrongEmail(mail);
+    }
+
+    @Then("I input valid email and invalid Telephone with only two numbers {string}")
+    public void iInputValidEmailAndInvalidTelephoneWithOnlyTwoNumbers(String number) {
+        registrationPage.validDataWrongTelephone(number);
+    }
+
+    @And("I see registration failed and error telephone message")
+    public void iSeeRegistrationFailedAndErrorTelephoneMessage() {
+        registrationPage.errorTelephone();
+    }
+
+    @Then("I change Telephone for thirty three numbers {string}")
+    public void iChangeTelephoneForThirtyThreeNumbers(String number) {
+        registrationPage.validDataWrongTelephoneTwo(number);
+    }
+
+    @Then("I input valid Telephone and invalid Password with only three char {string}")
+    public void iInputValidTelephoneAndInvalidPasswordWithOnlyThreeChar(String pass) {
+        registrationPage.validDataWrongPassword(pass);
+    }
+
+    @And("I see registration failed and error password and confpassword messages")
+    public void iSeeRegistrationFailedAndErrorPasswordAndConfpasswordMessages() {
+        registrationPage.errorPassword();
+        registrationPage.errorConfPassword();
+    }
+
+    @Then("I input valid Password and invalid ConfPassword with only three char {string}")
+    public void iInputValidPasswordAndInvalidConfPasswordWithOnlyThreeChar(String pass) {
+        registrationPage.validDataWrongConfPassword(pass);
+    }
+
+    @And("I see registration failed and error confpassword message")
+    public void iSeeRegistrationFailedAndErrorConfpasswordMessage() {
+        registrationPage.errorConfPassword();
+    }
 }
 
 
