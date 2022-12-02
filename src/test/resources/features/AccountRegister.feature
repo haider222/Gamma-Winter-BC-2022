@@ -16,7 +16,7 @@ Feature: New account registration and login
     And I see My Account heading in large font on the left side of the screen
     Examples:
       | firstname | lastname | email             | number  | password | confpassword |
-      | Tom       | Doe      | t.doe56@gmail.com | 1234567 | qwerty   | qwerty       |
+      | Tom       | Doe      | t.doe88@gmail.com | 1234567 | qwerty   | qwerty       |
 
   Scenario Outline: Login -Valid credentials(8,5)
     When I am on Login page
@@ -60,5 +60,27 @@ Feature: New account registration and login
     Then I input Password and delete Confirmation Password
     And I click continue button
     And I see Confirmation Password warning message
+
+  Scenario Outline: Registration - Invalid credentials (8,3)
+    When I am on register page
+    Then I input valid data and invalid Email without @ symbol "<wrongemail>"
+    And I click continue button
+    Then I see disappearing "<warning>" prompt that matches errors in "<wrongemail>"
+    Then I input valid email and invalid Telephone with only two numbers "<telephoneless>"
+    And I click continue button
+    And I see registration failed and error telephone message
+    Then I change Telephone for thirty three numbers "<telephonemore>"
+    And I click continue button
+    And I see registration failed and error telephone message
+    Then I input valid Telephone and invalid Password with only three char "<wrongpass>"
+    And I click continue button
+    And I see registration failed and error password and confpassword messages
+    Then I input valid Password and invalid ConfPassword with only three char "<wrongconfpass>"
+    And I click continue button
+    And I see registration failed and error confpassword message
+
+    Examples:
+      | telephonemore                     | telephoneless | wrongpass | wrongconfpass | wrongemail    | warning                                                                             |
+      | 123456789123456789123456789123456 | 12            | qwe       | qwe           | Test_emailtest.com | Please include an '@' in the email address. 'Test_emailtest.com' is missing an '@'. |
 
 
